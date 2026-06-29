@@ -237,10 +237,11 @@
           </div>
         </div>
         <div class="oui-non">
-          <label class="question">L'Espace Stagiaires est-il un lien externe ou à intégrer au site ? <span class="devis-badge">💶 DEVIS</span></label>
+          <label class="question">L'Espace Stagiaires ? <span class="devis-badge">💶 DEVIS</span></label>
           <div class="choices">
             <label><input type="radio" name="espace_stagiaire" value="lien_externe"> Lien externe (redirection)</label>
             <label><input type="radio" name="espace_stagiaire" value="integre"> Intégré au site</label>
+            <label><input type="radio" name="espace_stagiaire" value="non"> Pas d'espace stagiaires</label>
             <label><input type="radio" name="espace_stagiaire" value="a_discuter"> À discuter</label>
           </div>
         </div>
@@ -315,11 +316,12 @@
       <div class="section-header"><span class="emoji">🎨</span><h2>Identité visuelle</h2></div>
       <div class="section-body">
         <div class="oui-non">
-          <label class="question">Souhaitez-vous conserver le logo actuel ? <span class="devis-badge">💶 DEVIS</span></label>
+          <label class="question">Concernant le logo ? <span class="devis-badge">💶 DEVIS</span></label>
           <div class="choices">
-            <label><input type="radio" name="logo" value="conserver"> Oui — je le fournis</label>
-            <label><input type="radio" name="logo" value="refaire"> Non — à refaire par MAX DESIGN</label>
-            <label><input type="radio" name="logo" value="modifier"> Le modifier légèrement</label>
+            <label><input type="radio" name="logo" value="conserver"> Logo existant — je le fournis</label>
+            <label><input type="radio" name="logo" value="modifier"> Logo existant — à modifier légèrement</label>
+            <label><input type="radio" name="logo" value="refaire"> Pas de logo — à créer par MAX DESIGN</label>
+            <label><input type="radio" name="logo" value="sans"> Pas de logo — on n'en veut pas</label>
           </div>
         </div>
         <div class="oui-non">
@@ -368,9 +370,9 @@
       <div class="section-header"><span class="emoji">🏅</span><h2>Certifications & établissements</h2></div>
       <div class="section-body">
         <div class="field">
-          <label>Quelles certifications / labels sont à afficher ? <span style="color:var(--rouge)">*</span></label>
-          <span class="hint">Ex : QUALIOPI, INRS, Datadock… Avez-vous les logos en haute qualité ?</span>
-          <textarea name="certifications" placeholder="Ex : QUALIOPI (logo fourni), partenaire INRS (logo à récupérer)…" required></textarea>
+          <label>Quelles certifications / labels sont à afficher ?</label>
+          <span class="hint">Ex : QUALIOPI, INRS, Datadock… Avez-vous les logos en haute qualité ? Laissez vide si aucune.</span>
+          <textarea name="certifications" placeholder="Ex : QUALIOPI (logo fourni), partenaire INRS (logo à récupérer)… ou Aucune"></textarea>
         </div>
         <div class="field">
           <label>Y a-t-il plusieurs adresses / établissements à afficher ?</label>
