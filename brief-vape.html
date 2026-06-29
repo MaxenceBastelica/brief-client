@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brief Client — MAX DESIGN</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --violet:       #6C2BD9;
+    --violet-dark:  #4A1B9A;
+    --violet-mid:   #8B5CF6;
+    --violet-light: #EDE9FF;
+    --violet-pale:  #F5F3FF;
+    --gris-fond:    #F8F7FF;
+    --gris-texte:   #374151;
+    --gris-light:   #9CA3AF;
+    --gris-border:  #E5E7EB;
+    --rouge:        #EF4444;
+    --vert:         #10B981;
+    --orange:       #F59E0B;
+    --blanc:        #ffffff;
+    --noir:         #111827;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--gris-fond); color: var(--gris-texte); min-height: 100vh; padding: 2rem 1rem 4rem; }
+  .header { background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 60%, var(--violet-mid) 100%); border-radius: 20px; padding: 2.5rem 2rem 2rem; text-align: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; max-width: 780px; margin-inline: auto; }
+  .header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 60%); }
+  .header h1 { font-size: 1.9rem; font-weight: 700; color: #fff; letter-spacing: -0.03em; }
+  .header p  { font-size: 0.95rem; color: rgba(255,255,255,0.75); margin-top: 0.4rem; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: #fff; font-size: 0.78rem; padding: 0.3rem 0.9rem; border-radius: 999px; margin-top: 1rem; font-family: 'DM Mono', monospace; }
+  .container { max-width: 780px; margin: 0 auto; }
+  .alert-prio { background: var(--violet-pale); border: 1.5px solid var(--violet-mid); border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; display: flex; gap: 0.8rem; align-items: flex-start; }
+  .alert-prio .icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+  .alert-prio p { font-size: 0.88rem; color: var(--violet-dark); font-weight: 500; line-height: 1.5; }
+  .alert-prio strong { color: var(--violet); }
+  .alert-warn { background: #FFF7ED; border: 1.5px solid var(--orange); border-radius: 10px; padding: 0.9rem 1.1rem; font-size: 0.83rem; color: #92400E; line-height: 1.5; }
+  .alert-warn strong { color: #B45309; }
+  .progress-bar-wrap { background: var(--blanc); border-radius: 16px; border: 1px solid var(--gris-border); padding: 1rem 1.4rem; margin-bottom: 1.2rem; box-shadow: 0 2px 8px rgba(108,43,217,0.06); }
+  .progress-label { font-size: 0.82rem; color: var(--gris-light); margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
+  .progress-label span { font-weight: 600; color: var(--violet); }
+  .progress-track { height: 6px; background: var(--gris-border); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--violet-dark), var(--violet-mid)); border-radius: 999px; width: 0%; transition: width 0.4s ease; }
+  .section { background: var(--blanc); border-radius: 16px; overflow: hidden; margin-bottom: 1.2rem; border: 1px solid var(--gris-border); box-shadow: 0 2px 8px rgba(108,43,217,0.06); }
+  .section-header { background: linear-gradient(90deg, var(--violet-dark), var(--violet)); padding: 0.9rem 1.4rem; display: flex; align-items: center; gap: 0.6rem; }
+  .section-header .emoji { font-size: 1.1rem; }
+  .section-header h2 { font-size: 1rem; font-weight: 600; color: #fff; letter-spacing: -0.01em; }
+  .section-body { padding: 1.4rem; display: flex; flex-direction: column; gap: 1.1rem; }
+  .devis-badge { display: inline-flex; align-items: center; background: #ECFDF5; border: 1px solid #6EE7B7; color: #065F46; font-size: 0.72rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 6px; margin-left: 0.4rem; vertical-align: middle; letter-spacing: 0.02em; }
+  .field { display: flex; flex-direction: column; gap: 0.35rem; }
+  .field label { font-size: 0.85rem; font-weight: 600; color: var(--gris-texte); }
+  .field .hint { font-size: 0.78rem; color: var(--gris-light); margin-top: -0.2rem; }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"], .field textarea, .field select {
+    width: 100%; padding: 0.6rem 0.9rem; border: 1.5px solid var(--gris-border); border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--noir); background: var(--blanc);
+    transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--violet-mid); box-shadow: 0 0 0 3px rgba(108,43,217,0.12); }
+  .field input.error, .field textarea.error { border-color: var(--rouge); }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field select { cursor: pointer; }
+  .oui-non { display: flex; flex-direction: column; gap: 0.35rem; }
+  .oui-non label.question { font-size: 0.85rem; font-weight: 600; color: var(--gris-texte); }
+  .oui-non .choices { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.2rem; }
+  .oui-non .choices label { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 400; cursor: pointer; padding: 0.4rem 0.9rem; border: 1.5px solid var(--gris-border); border-radius: 999px; transition: all 0.15s; user-select: none; }
+  .oui-non .choices input[type="radio"] { display: none; }
+  .oui-non .choices label:has(input:checked) { background: var(--violet-light); border-color: var(--violet); color: var(--violet-dark); font-weight: 600; }
+  .oui-non .choices label:hover { border-color: var(--violet-mid); }
+  .checkboxes { display: flex; flex-direction: column; gap: 0.35rem; }
+  .checkboxes label.question { font-size: 0.85rem; font-weight: 600; color: var(--gris-texte); }
+  .checkboxes .options { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.2rem; }
+  .checkboxes .options label { display: flex; align-items: center; gap: 0.45rem; font-size: 0.85rem; font-weight: 400; cursor: pointer; padding: 0.4rem 0.9rem; border: 1.5px solid var(--gris-border); border-radius: 8px; transition: all 0.15s; user-select: none; }
+  .checkboxes .options input[type="checkbox"] { display: none; }
+  .checkboxes .options label:has(input:checked) { background: var(--violet-light); border-color: var(--violet); color: var(--violet-dark); font-weight: 600; }
+  .checkboxes .options label:hover { border-color: var(--violet-mid); }
+  .check-icon { font-size: 0.7rem; opacity: 0; transition: opacity 0.15s; }
+  .checkboxes .options label:has(input:checked) .check-icon { opacity: 1; }
+  .submit-wrap { text-align: center; margin-top: 2rem; }
+  .btn-submit { display: inline-flex; align-items: center; gap: 0.6rem; background: linear-gradient(135deg, var(--violet-dark), var(--violet)); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; padding: 0.9rem 2.5rem; border: none; border-radius: 12px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(108,43,217,0.35); }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(108,43,217,0.45); }
+  .btn-submit:active { transform: translateY(0); }
+  #toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--vert); color: #fff; padding: 0.9rem 2rem; border-radius: 12px; font-size: 0.95rem; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.35s ease; z-index: 999; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  #toast.error { background: var(--rouge); }
+  .footer { text-align: center; font-size: 0.78rem; color: var(--gris-light); margin-top: 2rem; font-family: 'DM Mono', monospace; }
+  #resume-section { display: none; }
+  #resume-section.visible { display: block; }
+  .resume-box { background: var(--violet-pale); border: 2px solid var(--violet); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.2rem; }
+  .resume-box h3 { font-size: 1.1rem; color: var(--violet-dark); margin-bottom: 1rem; }
+  .resume-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .resume-item { font-size: 0.83rem; }
+  .resume-item .rlabel { color: var(--gris-light); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .resume-item .rval { color: var(--noir); font-weight: 500; word-break: break-word; }
+  .resume-item .rval.empty { color: var(--gris-border); font-style: italic; }
+  @media (max-width: 600px) {
+    .resume-grid { grid-template-columns: 1fr; }
+    .oui-non .choices { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>📋 Brief Client</h1>
+    <p>Création de site e-commerce — Boutique Cigarettes Électroniques &amp; E-liquides</p>
+    <div class="badge">MAX DESIGN · Maxence Bastelica</div>
+  </div>
+
+  <div class="alert-prio">
+    <span class="icon">⚡</span>
+    <p><strong>Informations prioritaires à renseigner en premier :</strong> SIRET · Nom de domaine · Photos produits · Nombre de références · Budget</p>
+  </div>
+
+  <div class="alert-prio" style="background:#ECFDF5; border-color:#6EE7B7;">
+    <span class="icon">💶</span>
+    <p style="color:#065F46;">Les questions marquées <strong style="color:#047857;">💶 DEVIS</strong> impactent directement l'estimation de prix finale.</p>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-label">Complétion du formulaire <span id="pct">0%</span></div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <form id="brief-form" novalidate>
+
+    <!-- 1. INFOS BOUTIQUE -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">🏪</span><h2>Informations de la boutique</h2></div>
+      <div class="section-body">
+        <div class="field">
+          <label>Nom de la boutique / marque <span style="color:var(--rouge)">*</span></label>
+          <input type="text" name="nom_boutique" placeholder="Ex : VapeZone Vitry" required>
+        </div>
+        <div class="field">
+          <label>Adresse complète (boutique Vitry) <span style="color:var(--rouge)">*</span></label>
+          <input type="text" name="adresse" placeholder="Ex : 12 rue de la République, 94400 Vitry-sur-Seine" required>
+        </div>
+        <div class="field">
+          <label>Numéro SIRET <span style="color:var(--rouge)">*</span></label>
+          <input type="text" name="siret" placeholder="Ex : 123 456 789 00012" required>
+        </div>
+        <div class="field">
+          <label>Email professionnel <span style="color:var(--rouge)">*</span></label>
+          <input type="email" name="email" placeholder="contact@votreboutique.fr" required>
+        </div>
+        <div class="field">
+          <label>Numéro de téléphone</label>
+          <input type="tel" name="tel" placeholder="06 XX XX XX XX">
+        </div>
+        <div class="field">
+          <label>Interlocuteur principal (prénom, nom)</label>
+          <input type="text" name="contact_nom" placeholder="Ex : Mohamed Benali">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. DOMAINE & IDENTITÉ -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">🌐</span><h2>Domaine &amp; identité visuelle</h2></div>
+      <div class="section-body">
+        <div class="oui-non">
+          <label class="question">Vous avez déjà un nom de domaine ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_domaine" value="oui"> Oui</label>
+            <label><input type="radio" name="has_domaine" value="non"> Non</label>
+            <label><input type="radio" name="has_domaine" value="a_definir"> À définir</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Si oui — lequel ? Chez quel registrar ?</label>
+          <input type="text" name="domaine" placeholder="Ex : vapezone-vitry.fr chez OVH">
+        </div>
+        <div class="oui-non">
+          <label class="question">Vous avez un logo ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_logo" value="oui"> Oui — je le fournis</label>
+            <label><input type="radio" name="has_logo" value="non_max"> Non — à créer par MAX DESIGN</label>
+            <label><input type="radio" name="has_logo" value="non_externe"> Non — je m'en charge</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Format du logo disponible</label>
+          <span class="hint">Idéalement SVG ou PNG fond transparent</span>
+          <input type="text" name="logo_format" placeholder="Ex : PNG 500x500, fond blanc">
+        </div>
+        <div class="oui-non">
+          <label class="question">Vous avez une charte graphique (couleurs, polices) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_charte" value="oui"> Oui</label>
+            <label><input type="radio" name="has_charte" value="non"> Non</label>
+            <label><input type="radio" name="has_charte" value="a_definir"> À définir ensemble</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Style visuel souhaité</label>
+          <select name="style_visuel">
+            <option value="">— Sélectionner —</option>
+            <option>Moderne &amp; épuré (dark mode)</option>
+            <option>Coloré &amp; dynamique</option>
+            <option>Minimaliste blanc</option>
+            <option>Premium / luxe</option>
+            <option>Pas de préférence</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Sites concurrents / références visuelles que vous aimez</label>
+          <textarea name="references_visuelles" placeholder="Ex : https://exemple.fr — j'aime le style sombre et moderne"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. CATALOGUE PRODUITS -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">📦</span><h2>Catalogue produits</h2></div>
+      <div class="section-body">
+        <div class="field">
+          <label>Nombre de références produits environ <span style="color:var(--rouge)">*</span></label>
+          <span class="hint">Impacte directement l'architecture technique et le temps de développement</span>
+          <input type="text" name="nb_produits" placeholder="Ex : 80 produits" required>
+        </div>
+        <div class="checkboxes">
+          <label class="question">Catégories vendues</label>
+          <div class="options">
+            <label><input type="checkbox" name="cat" value="cigarettes"><span class="check-icon">✓</span> Cigarettes électroniques</label>
+            <label><input type="checkbox" name="cat" value="pods"><span class="check-icon">✓</span> Pods / Kits</label>
+            <label><input type="checkbox" name="cat" value="eliquides"><span class="check-icon">✓</span> E-liquides</label>
+            <label><input type="checkbox" name="cat" value="accessoires"><span class="check-icon">✓</span> Accessoires</label>
+            <label><input type="checkbox" name="cat" value="resistances"><span class="check-icon">✓</span> Résistances</label>
+            <label><input type="checkbox" name="cat" value="batteries"><span class="check-icon">✓</span> Batteries / Chargeurs</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Vos produits ont des variantes ? (taux nicotine, volume, saveur…)</label>
+          <div class="choices">
+            <label><input type="radio" name="has_variantes" value="oui"> Oui</label>
+            <label><input type="radio" name="has_variantes" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Vous avez des photos de vos produits ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_photos" value="oui"> Oui — je les fournis</label>
+            <label><input type="radio" name="has_photos" value="shooting"> Non — shooting à prévoir</label>
+            <label><input type="radio" name="has_photos" value="fournisseur"> Photos fournisseur disponibles</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Qualité / format des photos disponibles</label>
+          <span class="hint">Idéalement 1000×1000 px minimum, fond blanc ou transparent</span>
+          <input type="text" name="photos_format" placeholder="Ex : photos smartphone, fond neutre, ~800x800px">
+        </div>
+        <div class="oui-non">
+          <label class="question">Vous avez des descriptions produits rédigées ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_descriptions" value="oui"> Oui — je les fournis</label>
+            <label><input type="radio" name="has_descriptions" value="non"> Non — à rédiger par MAX DESIGN</label>
+            <label><input type="radio" name="has_descriptions" value="partiel"> Partiellement</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous un moteur de recherche avec filtres avancés ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_search" value="oui"> Oui (filtres par marque, saveur, nicotine...)</label>
+            <label><input type="radio" name="has_search" value="basique"> Recherche basique suffit</label>
+            <label><input type="radio" name="has_search" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous un système d'avis clients / notation produits ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_avis" value="oui"> Oui</label>
+            <label><input type="radio" name="has_avis" value="non"> Non</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. VENTE & LIVRAISON -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">🚚</span><h2>Vente &amp; livraison</h2></div>
+      <div class="section-body">
+        <div class="checkboxes">
+          <label class="question">Mode(s) de vente souhaité(s) <span style="color:var(--rouge)">*</span></label>
+          <div class="options">
+            <label><input type="checkbox" name="mode_vente" value="livraison"><span class="check-icon">✓</span> Vente en ligne (livraison)</label>
+            <label><input type="checkbox" name="mode_vente" value="click_collect"><span class="check-icon">✓</span> Click &amp; collect boutique</label>
+          </div>
+        </div>
+        <div class="checkboxes">
+          <label class="question">Zone de livraison</label>
+          <div class="options">
+            <label><input type="checkbox" name="zone" value="france"><span class="check-icon">✓</span> France entière</label>
+            <label><input type="checkbox" name="zone" value="idf"><span class="check-icon">✓</span> Île-de-France uniquement</label>
+            <label><input type="checkbox" name="zone" value="europe"><span class="check-icon">✓</span> Europe</label>
+          </div>
+        </div>
+        <div class="checkboxes">
+          <label class="question">Transporteur(s) souhaité(s)</label>
+          <div class="options">
+            <label><input type="checkbox" name="transporteur" value="colissimo"><span class="check-icon">✓</span> Colissimo</label>
+            <label><input type="checkbox" name="transporteur" value="mondial_relay"><span class="check-icon">✓</span> Mondial Relay</label>
+            <label><input type="checkbox" name="transporteur" value="chronopost"><span class="check-icon">✓</span> Chronopost</label>
+            <label><input type="checkbox" name="transporteur" value="au_choix"><span class="check-icon">✓</span> Au choix / à définir</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Tarif de livraison envisagé</label>
+          <span class="hint">Ex : gratuit à partir de 50€, sinon 4,90€</span>
+          <input type="text" name="tarif_livraison" placeholder="Ex : Gratuit dès 50€, sinon 4,90€ en Colissimo">
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous des notifications SMS en plus des emails ?</label>
+          <div class="choices">
+            <label><input type="radio" name="sms_notif" value="oui"> Oui</label>
+            <label><input type="radio" name="sms_notif" value="non"> Non — emails suffisent</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous des factures PDF générées automatiquement ?</label>
+          <div class="choices">
+            <label><input type="radio" name="factures_pdf" value="oui"> Oui</label>
+            <label><input type="radio" name="factures_pdf" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous un export CSV des commandes (pour comptabilité) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="export_csv" value="oui"> Oui</label>
+            <label><input type="radio" name="export_csv" value="non"> Non</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. PAIEMENT & FIDÉLITÉ -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">💳</span><h2>Paiement &amp; fidélité client</h2></div>
+      <div class="section-body">
+        <div class="oui-non">
+          <label class="question">Vous avez déjà un compte Stripe (paiement en ligne) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_stripe" value="oui"> Oui</label>
+            <label><input type="radio" name="has_stripe" value="non"> Non — à créer</label>
+          </div>
+        </div>
+        <div class="checkboxes">
+          <label class="question">Moyens de paiement souhaités</label>
+          <div class="options">
+            <label><input type="checkbox" name="paiement" value="cb"><span class="check-icon">✓</span> Carte bancaire</label>
+            <label><input type="checkbox" name="paiement" value="paypal"><span class="check-icon">✓</span> PayPal</label>
+            <label><input type="checkbox" name="paiement" value="apple_pay"><span class="check-icon">✓</span> Apple Pay</label>
+            <label><input type="checkbox" name="paiement" value="google_pay"><span class="check-icon">✓</span> Google Pay</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous un système de codes promo / réductions ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_promo" value="oui"> Oui</label>
+            <label><input type="radio" name="has_promo" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous un programme de fidélité client ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_fidelite" value="oui"> Oui (points, récompenses…)</label>
+            <label><input type="radio" name="has_fidelite" value="non"> Non</label>
+            <label><input type="radio" name="has_fidelite" value="a_discuter"> À discuter</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous des comptes clients (espace perso, historique commandes) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_comptes" value="oui"> Oui</label>
+            <label><input type="radio" name="has_comptes" value="non"> Non — achat invité uniquement</label>
+            <label><input type="radio" name="has_comptes" value="les_deux"> Les deux (invité + compte)</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. STOCK & ADMINISTRATION -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">📊</span><h2>Stock &amp; administration</h2></div>
+      <div class="section-body">
+        <div class="oui-non">
+          <label class="question">Voulez-vous une gestion de stock en temps réel (alertes rupture…) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="gestion_stock" value="oui"> Oui</label>
+            <label><input type="radio" name="gestion_stock" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous un tableau de bord analytics ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_dashboard" value="oui"> Oui (ventes, CA, commandes...)</label>
+            <label><input type="radio" name="has_dashboard" value="non"> Non — Google Analytics suffit</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Vous souhaitez gérer vous-même les produits (ajout, modif, stock) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="self_manage" value="oui"> Oui — back-office indispensable</label>
+            <label><input type="radio" name="self_manage" value="non"> Non — je passerai par vous</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Avez-vous un logiciel de caisse à synchroniser avec le site ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_caisse" value="oui"> Oui</label>
+            <label><input type="radio" name="has_caisse" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Si oui — quel logiciel de caisse ?</label>
+          <input type="text" name="logiciel_caisse" placeholder="Ex : Lightspeed, Zelty, Shopify POS...">
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. CONTENU & MARKETING -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">📣</span><h2>Contenu &amp; marketing</h2></div>
+      <div class="section-body">
+        <div class="oui-non">
+          <label class="question">Voulez-vous un blog (articles, guides, actualités vape…) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_blog" value="oui"> Oui</label>
+            <label><input type="radio" name="has_blog" value="non"> Non</label>
+            <label><input type="radio" name="has_blog" value="plus_tard"> Plus tard</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous une newsletter (Mailchimp, Brevo…) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_newsletter" value="oui"> Oui</label>
+            <label><input type="radio" name="has_newsletter" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous un chat support client sur le site ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_chat" value="oui"> Oui</label>
+            <label><input type="radio" name="has_chat" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous un site multilingue ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="multilingue" value="oui"> Oui</label>
+            <label><input type="radio" name="multilingue" value="non"> Non — français uniquement</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Combien de pages statiques prévues ?</label>
+          <span class="hint">Ex : Accueil, À propos, Contact, FAQ, CGV, Mentions légales, Livraison...</span>
+          <input type="text" name="nb_pages" placeholder="Ex : 7 pages (Accueil, Contact, FAQ, À propos, CGV, ML, Livraison)">
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. JURIDIQUE & RÉGLEMENTAIRE -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">⚖️</span><h2>Juridique &amp; réglementaire</h2></div>
+      <div class="section-body">
+        <div class="alert-warn">
+          ⚠️ La vente de produits de vape en ligne est soumise à des obligations légales strictes (directive TPD, Code de la Santé Publique). <strong>Âge gate 18+, mentions sanitaires et interdiction de publicité sont obligatoires et non négociables.</strong>
+        </div>
+        <div class="oui-non">
+          <label class="question">Vous avez déjà des CGV rédigées ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_cgv" value="oui"> Oui — je les fournis</label>
+            <label><input type="radio" name="has_cgv" value="non_max"> Non — à rédiger par MAX DESIGN</label>
+            <label><input type="radio" name="has_cgv" value="non_juriste"> Non — je prends un juriste</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Vous avez une politique de retour / remboursement définie ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_retour" value="oui"> Oui</label>
+            <label><input type="radio" name="has_retour" value="non"> Non — à définir</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Savez-vous qu'il faut déclarer votre activité à l'ANSM ?</label>
+          <div class="choices">
+            <label><input type="radio" name="ansm" value="oui"> Oui — déjà fait</label>
+            <label><input type="radio" name="ansm" value="non"> Non — je ne savais pas</label>
+            <label><input type="radio" name="ansm" value="en_cours"> En cours</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Vous avez un juriste / comptable pour valider les mentions légales ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_juriste" value="oui"> Oui</label>
+            <label><input type="radio" name="has_juriste" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="checkboxes">
+          <label class="question">Éléments réglementaires obligatoires (intégrés d'office)</label>
+          <div class="options">
+            <label><input type="checkbox" name="reglementaire" value="age_gate" checked disabled><span class="check-icon" style="opacity:1">✓</span> Vérification d'âge 18+</label>
+            <label><input type="checkbox" name="reglementaire" value="mentions_sanitaires" checked disabled><span class="check-icon" style="opacity:1">✓</span> Mentions sanitaires produits</label>
+            <label><input type="checkbox" name="reglementaire" value="no_pub" checked disabled><span class="check-icon" style="opacity:1">✓</span> Pas de pub Google/Meta</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. BUDGET & HÉBERGEMENT -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">💰</span><h2>Budget &amp; hébergement</h2></div>
+      <div class="section-body">
+        <div class="field">
+          <label>Budget global envisagé pour le développement <span style="color:var(--rouge)">*</span></label>
+          <select name="budget" required>
+            <option value="">— Sélectionner une fourchette —</option>
+            <option>Moins de 1 000 €</option>
+            <option>1 000 € – 2 000 €</option>
+            <option>2 000 € – 3 500 €</option>
+            <option>3 500 € – 5 000 €</option>
+            <option>Plus de 5 000 €</option>
+            <option>À définir selon devis</option>
+          </select>
+        </div>
+        <div class="alert-prio" style="margin:0">
+          <span class="icon">ℹ️</span>
+          <p>L'hébergement est estimé entre <strong>55€ et 250€/an</strong> selon la taille du catalogue et le trafic attendu (VPS Hetzner + Cloudflare). Ce coût est à prévoir en plus du développement.</p>
+        </div>
+        <div class="oui-non">
+          <label class="question">Vous souhaitez gérer l'hébergement vous-même ?</label>
+          <div class="choices">
+            <label><input type="radio" name="hebergement_autonome" value="oui"> Oui</label>
+            <label><input type="radio" name="hebergement_autonome" value="non"> Non — géré par MAX DESIGN</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Vous souhaitez un contrat de maintenance mensuel ?</label>
+          <div class="choices">
+            <label><input type="radio" name="maintenance" value="oui"> Oui</label>
+            <label><input type="radio" name="maintenance" value="non"> Non</label>
+            <label><input type="radio" name="maintenance" value="a_discuter"> À discuter</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Délai souhaité pour la livraison du site <span style="color:var(--rouge)">*</span></label>
+          <select name="delai" required>
+            <option value="">— Sélectionner —</option>
+            <option>Moins d'1 mois (urgent)</option>
+            <option>1 à 2 mois</option>
+            <option>2 à 3 mois</option>
+            <option>3 mois et plus</option>
+            <option>Pas de contrainte</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. FORMATION & GARANTIE -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">🎓</span><h2>Formation &amp; garantie</h2></div>
+      <div class="section-body">
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous une formation à l'utilisation du back-office ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="formation" value="oui"> Oui — présentiel ou visio</label>
+            <label><input type="radio" name="formation" value="doc"> Documentation écrite suffit</label>
+            <label><input type="radio" name="formation" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Quelle durée de garantie bugs souhaitez-vous après livraison ?</label>
+          <div class="choices">
+            <label><input type="radio" name="garantie" value="1mois"> 1 mois</label>
+            <label><input type="radio" name="garantie" value="3mois"> 3 mois</label>
+            <label><input type="radio" name="garantie" value="6mois"> 6 mois</label>
+            <label><input type="radio" name="garantie" value="a_discuter"> À discuter</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Avez-vous des contraintes techniques particulières ?</label>
+          <div class="choices">
+            <label><input type="radio" name="contraintes_tech" value="oui"> Oui</label>
+            <label><input type="radio" name="contraintes_tech" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Autres fonctionnalités souhaitées ou remarques libres</label>
+          <textarea name="autres" placeholder="Tout ce qui n'a pas été abordé ci-dessus…" style="min-height:100px"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- RÉSUMÉ -->
+    <div id="resume-section">
+      <div class="resume-box">
+        <h3>✅ Brief envoyé — récapitulatif</h3>
+        <div class="resume-grid" id="resume-grid"></div>
+      </div>
+    </div>
+
+    <div class="submit-wrap">
+      <button type="submit" class="btn-submit"><span>📨</span> Envoyer le brief à MAX DESIGN</button>
+    </div>
+
+  </form>
+
+  <div class="footer">MAX DESIGN · Maxence Bastelica · max.dev.design@gmail.com · 06 73 08 45 32 · SIRET 992 659 516 00015</div>
+</div>
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+emailjs.init('h6RqoaPz3x_Z4JQQe');
+
+function updateProgress(){
+  const req=[...document.querySelectorAll('[required]')];
+  const filled=req.filter(el=>el.value.trim()!=='').length;
+  const pct=Math.round((filled/req.length)*100);
+  document.getElementById('pct').textContent=pct+'%';
+  document.getElementById('progress-fill').style.width=pct+'%';
+}
+document.querySelectorAll('input,textarea,select').forEach(el=>{
+  el.addEventListener('input',updateProgress);
+  el.addEventListener('change',updateProgress);
+});
+updateProgress();
+
+function showToast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='show'+(type==='error'?' error':'');
+  setTimeout(()=>t.className='',3500);
+}
+
+const LABELS={
+  nom_boutique:'Nom boutique',adresse:'Adresse',siret:'SIRET',email:'Email',
+  tel:'Téléphone',contact_nom:'Interlocuteur',has_domaine:'Nom de domaine ?',
+  domaine:'Domaine',has_logo:'Logo ?',logo_format:'Format logo',
+  has_charte:'Charte graphique ?',style_visuel:'Style visuel',
+  references_visuelles:'Références visuelles',nb_produits:'Nb produits',
+  cat:'Catégories',has_variantes:'Variantes ?',has_photos:'Photos produits ?',
+  photos_format:'Format photos',has_descriptions:'Descriptions ?',
+  has_search:'Recherche/filtres ?',has_avis:'Avis clients ?',
+  mode_vente:'Mode vente',zone:'Zone livraison',transporteur:'Transporteur',
+  tarif_livraison:'Tarif livraison',sms_notif:'SMS notif ?',
+  factures_pdf:'Factures PDF ?',export_csv:'Export CSV ?',
+  has_stripe:'Compte Stripe ?',paiement:'Moyens paiement',
+  has_promo:'Codes promo ?',has_fidelite:'Programme fidélité ?',
+  has_comptes:'Comptes clients ?',gestion_stock:'Gestion stock ?',
+  has_dashboard:'Dashboard analytics ?',self_manage:'Gestion autonome ?',
+  has_caisse:'Logiciel caisse ?',logiciel_caisse:'Quel logiciel ?',
+  has_blog:'Blog ?',has_newsletter:'Newsletter ?',has_chat:'Chat support ?',
+  multilingue:'Multilingue ?',nb_pages:'Nb pages statiques',
+  has_cgv:'CGV ?',has_retour:'Politique retour ?',ansm:'Déclaration ANSM ?',
+  has_juriste:'Juriste ?',budget:'Budget',hebergement_autonome:'Hébergement autonome ?',
+  maintenance:'Maintenance ?',delai:'Délai souhaité',formation:'Formation ?',
+  garantie:'Garantie bugs',contraintes_tech:'Contraintes tech ?',autres:'Remarques'
+};
+
+document.getElementById('brief-form').addEventListener('submit',async function(e){
+  e.preventDefault();
+  const req=[...document.querySelectorAll('[required]')];
+  let ok=true;
+  req.forEach(el=>{el.classList.remove('error');if(!el.value.trim()){el.classList.add('error');ok=false;}});
+  if(!ok){showToast('Merci de remplir les champs obligatoires (*)','error');return;}
+
+  const fd=new FormData(this);
+  const data={};
+  for(let[k,v]of fd.entries()){
+    const input=[...document.querySelectorAll(`input[name="${k}"]`)].find(el=>el.value===v);
+    let display=v;
+    if(input&&(input.type==='radio'||input.type==='checkbox')){
+      const lbl=input.closest('label');
+      if(lbl) display=lbl.textContent.trim().replace(/^✓\s*/,'');
+    }
+    if(data[k]){data[k]=Array.isArray(data[k])?[...data[k],display]:[data[k],display];}
+    else{data[k]=display;}
+  }
+
+  const grid=document.getElementById('resume-grid');
+  grid.innerHTML='';
+  for(let[k,v]of Object.entries(data)){
+    if(!LABELS[k])continue;
+    const val=Array.isArray(v)?v.join(', '):v;
+    const div=document.createElement('div');div.className='resume-item';
+    div.innerHTML=`<div class="rlabel">${LABELS[k]}</div><div class="rval ${val?'':'empty'}">${val||'—'}</div>`;
+    grid.appendChild(div);
+  }
+
+  const btn=document.querySelector('.btn-submit');
+  btn.disabled=true;btn.textContent='Envoi en cours…';
+  try{
+    const SECTIONS=[
+      {title:'Informations boutique',emoji:'🏪',keys:['nom_boutique','adresse','siret','email','tel','contact_nom']},
+      {title:'Domaine & identité visuelle',emoji:'🌐',keys:['has_domaine','domaine','has_logo','logo_format','has_charte','style_visuel','references_visuelles']},
+      {title:'Catalogue produits',emoji:'📦',keys:['nb_produits','cat','has_variantes','has_photos','photos_format','has_descriptions','has_search','has_avis']},
+      {title:'Vente & livraison',emoji:'🚚',keys:['mode_vente','zone','transporteur','tarif_livraison','sms_notif','factures_pdf','export_csv']},
+      {title:'Paiement & fidélité',emoji:'💳',keys:['has_stripe','paiement','has_promo','has_fidelite','has_comptes']},
+      {title:'Stock & administration',emoji:'📊',keys:['gestion_stock','has_dashboard','self_manage','has_caisse','logiciel_caisse']},
+      {title:'Contenu & marketing',emoji:'📣',keys:['has_blog','has_newsletter','has_chat','multilingue','nb_pages']},
+      {title:'Juridique & réglementaire',emoji:'⚖️',keys:['has_cgv','has_retour','ansm','has_juriste']},
+      {title:'Budget & hébergement',emoji:'💰',keys:['budget','hebergement_autonome','maintenance','delai']},
+      {title:'Formation & garantie',emoji:'🎓',keys:['formation','garantie','contraintes_tech','autres']},
+    ];
+    let message='<table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-family:Arial,Helvetica,sans-serif">';
+    for(const s of SECTIONS){
+      let rows='';let ri=0;
+      for(const k of s.keys){
+        if(!LABELS[k]||data[k]===undefined)continue;
+        const val=Array.isArray(data[k])?data[k].join(', '):String(data[k]);
+        if(!val)continue;
+        const bg=ri%2===0?'#F5F3FF':'#ffffff';
+        rows+=`<tr><td bgcolor="${bg}" width="38%" valign="top" style="padding:9px 16px;color:#6B7280;font-size:13px;line-height:1.5;border-bottom:1px solid #EDE9FF;background-color:${bg}">${LABELS[k]}</td><td bgcolor="${bg}" valign="top" style="padding:9px 16px;color:#111827;font-size:13px;font-weight:700;line-height:1.5;border-bottom:1px solid #EDE9FF;background-color:${bg}">${String(val).replace(/\n/g,'<br>')}</td></tr>`;
+        ri++;
+      }
+      if(!rows)continue;
+      message+=`<tr><td colspan="2" style="padding-top:22px"></td></tr><tr><td colspan="2" bgcolor="#6C2BD9" style="background-color:#6C2BD9;padding:11px 16px"><span style="color:#ffffff;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">${s.emoji}&nbsp; ${s.title}</span></td></tr>${rows}`;
+    }
+    const exportData={
+      title:'Brief Boutique Vape — '+(data.nom_boutique||'Client'),
+      sections:SECTIONS.map(s=>({
+        title:s.title,emoji:s.emoji,
+        rows:s.keys.reduce((acc,k)=>{
+          if(!LABELS[k]||data[k]===undefined)return acc;
+          const val=Array.isArray(data[k])?data[k].join(', '):String(data[k]);
+          if(val.trim())acc.push([LABELS[k],val]);
+          return acc;
+        },[])
+      })).filter(s=>s.rows.length>0)
+    };
+    const exportHash=btoa(unescape(encodeURIComponent(JSON.stringify(exportData))));
+    const downloadUrl='https://maxencebastelica.github.io/brief-client/view-brief.html#'+exportHash;
+    message+=`<tr><td colspan="2" style="padding-top:16px"></td></tr><tr><td colspan="2" align="center" style="padding:24px 16px;border-top:2px solid #EDE9FF"><a href="${downloadUrl}" style="display:inline-block;background-color:#6C2BD9;color:#ffffff;padding:13px 30px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:700">⬇️ Télécharger le brief (.md)</a></td></tr></table>`;
+    const params={
+      name:data.nom_boutique||'Nouveau client',
+      title:'Brief Boutique Vape — '+(data.nom_boutique||'Nouveau client'),
+      email:data.email||'',
+      message:message
+    };
+    await emailjs.send('service_fscstcc','template_huztaah',params);
+    document.getElementById('resume-section').classList.add('visible');
+    document.getElementById('resume-section').scrollIntoView({behavior:'smooth',block:'start'});
+    showToast('✅ Brief envoyé avec succès !');
+  }catch(err){
+    console.error(err);
+    showToast('Erreur envoi — vérifiez votre connexion','error');
+  }finally{
+    btn.disabled=false;btn.textContent='📨 Envoyer le brief à MAX DESIGN';
+  }
+});
+</script>
+</body>
+</html>
