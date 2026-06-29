@@ -36,7 +36,7 @@
     <p>MAX DESIGN · Maxence Bastelica</p>
   </div>
   <div class="download-wrap">
-    <button class="btn-download" id="btn-dl">⬇️ Télécharger le brief (.txt)</button>
+    <button class="btn-download" id="btn-dl">⬇️ Télécharger le brief (.md)</button>
   </div>
   <div id="content"></div>
   <div id="error" style="display:none">❌ Données introuvables — ce lien est peut-être invalide.</div>
@@ -71,20 +71,20 @@ if(exportData){
 
 document.getElementById('btn-dl').addEventListener('click',function(){
   if(!exportData)return;
-  let txt=exportData.title+'\n'+'='.repeat(60)+'\n\n';
+  let txt='# '+exportData.title+'\n\n';
   for(const s of exportData.sections){
-    txt+=s.emoji+' '+s.title.toUpperCase()+'\n'+'─'.repeat(40)+'\n';
+    txt+='---\n\n## '+s.emoji+' '+s.title+'\n\n';
     for(const [label,val] of s.rows){
-      txt+=label+' : '+val+'\n';
+      txt+='**'+label+'** : '+val+'  \n';
     }
     txt+='\n';
   }
-  const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+  const blob=new Blob([txt],{type:'text/markdown;charset=utf-8'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
   a.href=url;
   const slug=(exportData.title||'brief').split('—').pop().trim().toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
-  a.download='brief-'+slug+'.txt';
+  a.download='brief-'+slug+'.md';
   document.body.appendChild(a);a.click();
   document.body.removeChild(a);URL.revokeObjectURL(url);
 });
