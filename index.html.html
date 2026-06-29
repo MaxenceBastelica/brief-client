@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brief Client — MAX DESIGN</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --violet:       #6C2BD9;
+    --violet-dark:  #4A1B9A;
+    --violet-mid:   #8B5CF6;
+    --violet-light: #EDE9FF;
+    --violet-pale:  #F5F3FF;
+    --gris-fond:    #F8F7FF;
+    --gris-texte:   #374151;
+    --gris-light:   #9CA3AF;
+    --gris-border:  #E5E7EB;
+    --rouge:        #EF4444;
+    --vert:         #10B981;
+    --orange:       #F59E0B;
+    --blanc:        #ffffff;
+    --noir:         #111827;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--gris-fond); color: var(--gris-texte); min-height: 100vh; padding: 2rem 1rem 4rem; }
+
+  .header { background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 60%, var(--violet-mid) 100%); border-radius: 20px; padding: 2.5rem 2rem 2rem; text-align: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; max-width: 780px; margin-inline: auto; }
+  .header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 60%); }
+  .header h1 { font-size: 1.9rem; font-weight: 700; color: #fff; letter-spacing: -0.03em; position: relative; }
+  .header p  { font-size: 0.95rem; color: rgba(255,255,255,0.75); margin-top: 0.4rem; position: relative; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: #fff; font-size: 0.78rem; padding: 0.3rem 0.9rem; border-radius: 999px; margin-top: 1rem; font-family: 'DM Mono', monospace; position: relative; }
+
+  .container { max-width: 780px; margin: 0 auto; }
+
+  .alert-prio { background: var(--violet-pale); border: 1.5px solid var(--violet-mid); border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; display: flex; gap: 0.8rem; align-items: flex-start; }
+  .alert-prio .icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+  .alert-prio p { font-size: 0.88rem; color: var(--violet-dark); font-weight: 500; line-height: 1.5; }
+  .alert-prio strong { color: var(--violet); }
+  .alert-warn { background: #FFF7ED; border: 1.5px solid var(--orange); border-radius: 10px; padding: 0.9rem 1.1rem; font-size: 0.83rem; color: #92400E; line-height: 1.5; }
+  .alert-vert { background: #ECFDF5; border: 1.5px solid #6EE7B7; border-radius: 10px; padding: 0.9rem 1.1rem; font-size: 0.83rem; color: #065F46; line-height: 1.5; }
+
+  .progress-bar-wrap { background: var(--blanc); border-radius: 16px; border: 1px solid var(--gris-border); padding: 1rem 1.4rem; margin-bottom: 1.2rem; box-shadow: 0 2px 8px rgba(108,43,217,0.06); }
+  .progress-label { font-size: 0.82rem; color: var(--gris-light); margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
+  .progress-label span { font-weight: 600; color: var(--violet); }
+  .progress-track { height: 6px; background: var(--gris-border); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--violet-dark), var(--violet-mid)); border-radius: 999px; width: 0%; transition: width 0.4s ease; }
+
+  .section { background: var(--blanc); border-radius: 16px; overflow: hidden; margin-bottom: 1.2rem; border: 1px solid var(--gris-border); box-shadow: 0 2px 8px rgba(108,43,217,0.06); }
+  .section-header { background: linear-gradient(90deg, var(--violet-dark), var(--violet)); padding: 0.9rem 1.4rem; display: flex; align-items: center; gap: 0.6rem; }
+  .section-header .emoji { font-size: 1.1rem; }
+  .section-header h2 { font-size: 1rem; font-weight: 600; color: #fff; letter-spacing: -0.01em; }
+  .section-body { padding: 1.4rem; display: flex; flex-direction: column; gap: 1.1rem; }
+
+  .devis-badge { display: inline-flex; align-items: center; background: #ECFDF5; border: 1px solid #6EE7B7; color: #065F46; font-size: 0.72rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 6px; margin-left: 0.4rem; vertical-align: middle; letter-spacing: 0.02em; }
+
+  .field { display: flex; flex-direction: column; gap: 0.35rem; }
+  .field label { font-size: 0.85rem; font-weight: 600; color: var(--gris-texte); }
+  .field .hint { font-size: 0.78rem; color: var(--gris-light); margin-top: -0.2rem; }
+  .field input[type="text"], .field input[type="email"], .field input[type="tel"], .field textarea, .field select {
+    width: 100%; padding: 0.6rem 0.9rem; border: 1.5px solid var(--gris-border); border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--noir); background: var(--blanc);
+    transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--violet-mid); box-shadow: 0 0 0 3px rgba(108,43,217,0.12); }
+  .field input.error, .field textarea.error { border-color: var(--rouge); }
+  .field textarea { resize: vertical; min-height: 80px; }
+
+  .oui-non { display: flex; flex-direction: column; gap: 0.35rem; }
+  .oui-non label.question { font-size: 0.85rem; font-weight: 600; color: var(--gris-texte); }
+  .oui-non .choices { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.2rem; }
+  .oui-non .choices label { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; cursor: pointer; padding: 0.4rem 0.9rem; border: 1.5px solid var(--gris-border); border-radius: 999px; transition: all 0.15s; user-select: none; }
+  .oui-non .choices input[type="radio"] { display: none; }
+  .oui-non .choices label:has(input:checked) { background: var(--violet-light); border-color: var(--violet); color: var(--violet-dark); font-weight: 600; }
+  .oui-non .choices label:hover { border-color: var(--violet-mid); }
+
+  .checkboxes { display: flex; flex-direction: column; gap: 0.35rem; }
+  .checkboxes label.question { font-size: 0.85rem; font-weight: 600; color: var(--gris-texte); }
+  .checkboxes .options { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.2rem; }
+  .checkboxes .options label { display: flex; align-items: center; gap: 0.45rem; font-size: 0.85rem; cursor: pointer; padding: 0.4rem 0.9rem; border: 1.5px solid var(--gris-border); border-radius: 8px; transition: all 0.15s; user-select: none; }
+  .checkboxes .options input[type="checkbox"] { display: none; }
+  .checkboxes .options label:has(input:checked) { background: var(--violet-light); border-color: var(--violet); color: var(--violet-dark); font-weight: 600; }
+  .check-icon { font-size: 0.7rem; opacity: 0; transition: opacity 0.15s; }
+  .checkboxes .options label:has(input:checked) .check-icon { opacity: 1; }
+
+  .submit-wrap { text-align: center; margin-top: 2rem; }
+  .btn-submit { display: inline-flex; align-items: center; gap: 0.6rem; background: linear-gradient(135deg, var(--violet-dark), var(--violet)); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; padding: 0.9rem 2.5rem; border: none; border-radius: 12px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(108,43,217,0.35); }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(108,43,217,0.45); }
+
+  #toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--vert); color: #fff; padding: 0.9rem 2rem; border-radius: 12px; font-size: 0.95rem; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.35s ease; z-index: 999; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  #toast.error { background: var(--rouge); }
+
+  .footer { text-align: center; font-size: 0.78rem; color: var(--gris-light); margin-top: 2rem; font-family: 'DM Mono', monospace; }
+
+  #resume-section { display: none; }
+  #resume-section.visible { display: block; }
+  .resume-box { background: var(--violet-pale); border: 2px solid var(--violet); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.2rem; }
+  .resume-box h3 { font-size: 1.1rem; color: var(--violet-dark); margin-bottom: 1rem; }
+  .resume-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .resume-item { font-size: 0.83rem; }
+  .resume-item .rlabel { color: var(--gris-light); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .resume-item .rval { color: var(--noir); font-weight: 500; word-break: break-word; }
+  .resume-item .rval.empty { color: var(--gris-border); font-style: italic; }
+
+  @media (max-width: 600px) { .resume-grid { grid-template-columns: 1fr; } .oui-non .choices { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>📋 Brief Client</h1>
+    <p><!-- TITRE DU PROJET --></p>
+    <div class="badge">MAX DESIGN · Maxence Bastelica</div>
+  </div>
+
+  <div class="alert-prio">
+    <span class="icon">⚡</span>
+    <p><strong>Remplissez ce formulaire</strong> avant notre premier rendez-vous. Plus il est complet, plus le devis sera précis et rapide.</p>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-label">Complétion du formulaire <span id="pct">0%</span></div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <form id="brief-form" novalidate>
+
+    <!-- 1. INFOS CLIENT -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">👤</span><h2>Informations client</h2></div>
+      <div class="section-body">
+        <div class="field">
+          <label>Nom / Entreprise <span style="color:var(--rouge)">*</span></label>
+          <input type="text" name="nom" placeholder="Ex : Jean Dupont ou SARL Exemple" required>
+        </div>
+        <div class="field">
+          <label>Adresse complète</label>
+          <input type="text" name="adresse" placeholder="Ex : 12 rue des Lilas, 75001 Paris">
+        </div>
+        <div class="field">
+          <label>Numéro SIRET</label>
+          <input type="text" name="siret" placeholder="Ex : 123 456 789 00012">
+        </div>
+        <div class="field">
+          <label>Email professionnel <span style="color:var(--rouge)">*</span></label>
+          <input type="email" name="email" placeholder="contact@votreentreprise.fr" required>
+        </div>
+        <div class="field">
+          <label>Numéro de téléphone</label>
+          <input type="tel" name="tel" placeholder="06 XX XX XX XX">
+        </div>
+        <div class="field">
+          <label>Interlocuteur principal (prénom, nom)</label>
+          <input type="text" name="contact_nom" placeholder="Ex : Marie Martin">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. PROJET -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">🎯</span><h2>Votre projet</h2></div>
+      <div class="section-body">
+        <div class="field">
+          <label>Décrivez votre projet en quelques phrases <span style="color:var(--rouge)">*</span></label>
+          <textarea name="description_projet" placeholder="Ex : Je souhaite créer un site vitrine pour mon activité de…" required style="min-height:100px"></textarea>
+        </div>
+        <div class="field">
+          <label>Quels sont vos objectifs principaux ?</label>
+          <span class="hint">Visibilité, ventes en ligne, réservations, notoriété…</span>
+          <textarea name="objectifs" placeholder="Ex : Attirer de nouveaux clients locaux et permettre la prise de rendez-vous en ligne"></textarea>
+        </div>
+        <div class="field">
+          <label>Qui est votre cible / clientèle ?</label>
+          <input type="text" name="cible" placeholder="Ex : Particuliers 30-50 ans, PME locales…">
+        </div>
+        <div class="field">
+          <label>Sites concurrents ou références que vous appréciez</label>
+          <textarea name="references" placeholder="Ex : https://exemple.fr — j'aime le design épuré et les couleurs"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. IDENTITÉ VISUELLE -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">🎨</span><h2>Identité visuelle</h2></div>
+      <div class="section-body">
+        <div class="oui-non">
+          <label class="question">Vous avez déjà un logo ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_logo" value="oui"> Oui — je le fournis</label>
+            <label><input type="radio" name="has_logo" value="non_max"> Non — à créer par MAX DESIGN</label>
+            <label><input type="radio" name="has_logo" value="non_ext"> Non — je m'en charge</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Vous avez une charte graphique ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_charte" value="oui"> Oui</label>
+            <label><input type="radio" name="has_charte" value="non"> Non</label>
+            <label><input type="radio" name="has_charte" value="a_definir"> À définir ensemble</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Style visuel souhaité</label>
+          <select name="style_visuel">
+            <option value="">— Sélectionner —</option>
+            <option>Moderne & épuré</option>
+            <option>Chaleureux & artisanal</option>
+            <option>Premium / luxe</option>
+            <option>Coloré & dynamique</option>
+            <option>Minimaliste</option>
+            <option>Pas de préférence</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. FONCTIONNALITÉS -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">⚙️</span><h2>Fonctionnalités souhaitées</h2></div>
+      <div class="section-body">
+        <div class="checkboxes">
+          <label class="question">Quelles fonctionnalités souhaitez-vous ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="options">
+            <label><input type="checkbox" name="fonctionnalites" value="vitrine"><span class="check-icon">✓</span> Site vitrine</label>
+            <label><input type="checkbox" name="fonctionnalites" value="blog"><span class="check-icon">✓</span> Blog / actualités</label>
+            <label><input type="checkbox" name="fonctionnalites" value="reservation"><span class="check-icon">✓</span> Système de réservation</label>
+            <label><input type="checkbox" name="fonctionnalites" value="ecommerce"><span class="check-icon">✓</span> E-commerce / boutique</label>
+            <label><input type="checkbox" name="fonctionnalites" value="contact"><span class="check-icon">✓</span> Formulaire de contact</label>
+            <label><input type="checkbox" name="fonctionnalites" value="galerie"><span class="check-icon">✓</span> Galerie photos / portfolio</label>
+            <label><input type="checkbox" name="fonctionnalites" value="multilangue"><span class="check-icon">✓</span> Multilingue</label>
+            <label><input type="checkbox" name="fonctionnalites" value="espace_client"><span class="check-icon">✓</span> Espace client / connexion</label>
+            <label><input type="checkbox" name="fonctionnalites" value="seo"><span class="check-icon">✓</span> Optimisation SEO</label>
+            <label><input type="checkbox" name="fonctionnalites" value="rgpd"><span class="check-icon">✓</span> Conformité RGPD</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Autres fonctionnalités spécifiques</label>
+          <textarea name="fonctionnalites_autres" placeholder="Décrivez toute fonctionnalité particulière non listée ci-dessus…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. CONTENU -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">📝</span><h2>Contenu & pages</h2></div>
+      <div class="section-body">
+        <div class="field">
+          <label>Combien de pages prévues ?</label>
+          <input type="text" name="nb_pages" placeholder="Ex : 5 pages (Accueil, À propos, Services, Galerie, Contact)">
+        </div>
+        <div class="oui-non">
+          <label class="question">Avez-vous déjà les textes rédigés ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_textes" value="oui"> Oui — je les fournis</label>
+            <label><input type="radio" name="has_textes" value="non_max"> Non — à rédiger par MAX DESIGN</label>
+            <label><input type="radio" name="has_textes" value="partiel"> Partiellement</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Avez-vous des photos / visuels ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_photos" value="oui"> Oui — je les fournis</label>
+            <label><input type="radio" name="has_photos" value="non_max"> Non — à sourcer par MAX DESIGN</label>
+            <label><input type="radio" name="has_photos" value="stock"> Banque d'images libres de droits</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. TECHNIQUE -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">🖥️</span><h2>Technique & hébergement</h2></div>
+      <div class="section-body">
+        <div class="oui-non">
+          <label class="question">Vous avez déjà un nom de domaine ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_domaine" value="oui"> Oui</label>
+            <label><input type="radio" name="has_domaine" value="non"> Non</label>
+            <label><input type="radio" name="has_domaine" value="a_definir"> À définir</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Si oui — lequel ? Chez quel registrar ?</label>
+          <input type="text" name="domaine" placeholder="Ex : monsite.fr chez OVH">
+        </div>
+        <div class="oui-non">
+          <label class="question">Vous souhaitez gérer l'hébergement vous-même ?</label>
+          <div class="choices">
+            <label><input type="radio" name="hebergement_autonome" value="oui"> Oui</label>
+            <label><input type="radio" name="hebergement_autonome" value="non"> Non — géré par MAX DESIGN</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous un contrat de maintenance ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="maintenance" value="oui"> Oui</label>
+            <label><input type="radio" name="maintenance" value="non"> Non</label>
+            <label><input type="radio" name="maintenance" value="a_discuter"> À discuter</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. BUDGET & DÉLAIS -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">💰</span><h2>Budget & délais</h2></div>
+      <div class="section-body">
+        <div class="field">
+          <label>Budget global envisagé <span style="color:var(--rouge)">*</span></label>
+          <select name="budget" required>
+            <option value="">— Sélectionner une fourchette —</option>
+            <option>Moins de 500 €</option>
+            <option>500 € – 1 000 €</option>
+            <option>1 000 € – 2 000 €</option>
+            <option>2 000 € – 3 500 €</option>
+            <option>3 500 € – 5 000 €</option>
+            <option>Plus de 5 000 €</option>
+            <option>À définir selon devis</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Délai souhaité pour la livraison <span style="color:var(--rouge)">*</span></label>
+          <select name="delai" required>
+            <option value="">— Sélectionner —</option>
+            <option>Moins d'1 mois (urgent)</option>
+            <option>1 à 2 mois</option>
+            <option>2 à 3 mois</option>
+            <option>3 mois et plus</option>
+            <option>Pas de contrainte</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Remarques libres ou informations complémentaires</label>
+          <textarea name="remarques" placeholder="Tout ce qui n'a pas été abordé ci-dessus…" style="min-height:100px"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- RÉSUMÉ -->
+    <div id="resume-section">
+      <div class="resume-box">
+        <h3>✅ Brief envoyé — récapitulatif</h3>
+        <div class="resume-grid" id="resume-grid"></div>
+      </div>
+    </div>
+
+    <div class="submit-wrap">
+      <button type="submit" class="btn-submit"><span>📨</span> Envoyer le brief à MAX DESIGN</button>
+    </div>
+
+  </form>
+
+  <div class="footer">MAX DESIGN · Maxence Bastelica · max.dev.design@gmail.com · 06 73 08 45 32 · SIRET 992 659 516 00015</div>
+</div><!-- /container -->
+<div id="toast"></div>
+
+<script>
+function updateProgress(){
+  const req=[...document.querySelectorAll('[required]')];
+  const filled=req.filter(el=>el.value.trim()!=='').length;
+  const pct=Math.round((filled/req.length)*100);
+  document.getElementById('pct').textContent=pct+'%';
+  document.getElementById('progress-fill').style.width=pct+'%';
+}
+document.querySelectorAll('input,textarea,select').forEach(el=>{
+  el.addEventListener('input',updateProgress);
+  el.addEventListener('change',updateProgress);
+});
+updateProgress();
+
+function showToast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='show'+(type==='error'?' error':'');
+  setTimeout(()=>t.className='',3500);
+}
+
+const LABELS={
+  nom:'Nom / Entreprise',adresse:'Adresse',siret:'SIRET',email:'Email',tel:'Téléphone',
+  contact_nom:'Interlocuteur',description_projet:'Description projet',objectifs:'Objectifs',
+  cible:'Cible',references:'Références',has_logo:'Logo ?',has_charte:'Charte graphique ?',
+  style_visuel:'Style visuel',fonctionnalites:'Fonctionnalités',fonctionnalites_autres:'Autres fonctionnalités',
+  nb_pages:'Nb de pages',has_textes:'Textes rédigés ?',has_photos:'Photos disponibles ?',
+  has_domaine:'Nom de domaine ?',domaine:'Domaine',hebergement_autonome:'Hébergement autonome ?',
+  maintenance:'Maintenance ?',budget:'Budget',delai:'Délai',remarques:'Remarques'
+};
+
+document.getElementById('brief-form').addEventListener('submit',async function(e){
+  e.preventDefault();
+  const req=[...document.querySelectorAll('[required]')];
+  let ok=true;
+  req.forEach(el=>{el.classList.remove('error');if(!el.value.trim()){el.classList.add('error');ok=false;}});
+  if(!ok){showToast('Merci de remplir les champs obligatoires (*)','error');return;}
+
+  const fd=new FormData(this);
+  const data={};
+  for(let[k,v]of fd.entries()){
+    if(data[k]){data[k]=Array.isArray(data[k])?[...data[k],v]:[data[k],v];}
+    else{data[k]=v;}
+  }
+
+  const grid=document.getElementById('resume-grid');
+  grid.innerHTML='';
+  for(let[k,v]of Object.entries(data)){
+    if(!LABELS[k])continue;
+    const val=Array.isArray(v)?v.join(', '):v;
+    const div=document.createElement('div');div.className='resume-item';
+    div.innerHTML=`<div class="rlabel">${LABELS[k]}</div><div class="rval ${val?'':'empty'}">${val||'—'}</div>`;
+    grid.appendChild(div);
+  }
+
+  const btn=document.querySelector('.btn-submit');
+  btn.disabled=true;btn.textContent='Envoi en cours…';
+  try{
+    const payload=new FormData();
+    for(let[k,v]of Object.entries(data)){
+      const label=LABELS[k]||k;
+      const val=Array.isArray(v)?v.join(', '):v;
+      payload.append(label,val||'—');
+    }
+    payload.append('_subject','Brief client — '+(data.nom||'Nouveau client'));
+    const res=await fetch('https://formspree.io/f/xdardera',{method:'POST',body:payload,headers:{Accept:'application/json'}});
+    if(res.ok){
+      document.getElementById('resume-section').classList.add('visible');
+      document.getElementById('resume-section').scrollIntoView({behavior:'smooth',block:'start'});
+      showToast('✅ Brief envoyé avec succès !');
+      btn.textContent='✅ Brief envoyé';
+    }else{throw new Error();}
+  }catch{
+    showToast('Erreur lors de l\'envoi, réessayez.','error');
+    btn.disabled=false;btn.innerHTML='<span>📨</span> Envoyer le brief à MAX DESIGN';
+  }
+});
+</script>
+</body>
+</html>
