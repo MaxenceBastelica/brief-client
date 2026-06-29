@@ -687,15 +687,35 @@ document.getElementById('brief-form').addEventListener('submit',async function(e
   const btn=document.querySelector('.btn-submit');
   btn.disabled=true;btn.textContent='Envoi en cours…';
   try{
-    let message='';
-    for(let[k,v]of Object.entries(data)){
-      if(!LABELS[k])continue;
-      const val=Array.isArray(v)?v.join(', '):v;
-      message+=LABELS[k]+' : '+(val||'—')+'\n';
+    const SECTIONS=[
+      {title:'Informations client',emoji:'👤',keys:['nom','adresse','siret','email','tel','contact_nom','decideur','reseaux_sociaux','google_business']},
+      {title:'Site actuel',emoji:'🌐',keys:['url_actuel','problemes_actuels','a_conserver','a_supprimer']},
+      {title:'Objectifs',emoji:'🎯',keys:['objectifs','cible','references']},
+      {title:'Contenu à réintégrer',emoji:'📋',keys:['formations','structure_formations','modalites_formations','page_financements','espace_stagiaire','textes_formations','has_photos','migration_blog','temoignages','faq','logos_clients','zones_geo','chiffres_cles','accessibilite']},
+      {title:'Organisation des formations',emoji:'📚',keys:['format_pedagogique','logiciel_gestion','calendrier_sessions','page_equipe']},
+      {title:'Fonctionnalités',emoji:'⚙️',keys:['fonctionnalites','fonctionnalites_autres']},
+      {title:'Identité visuelle',emoji:'🎨',keys:['logo','has_charte','style_visuel','couleurs','polices']},
+      {title:'SEO & référencement',emoji:'🔍',keys:['seo_actuel','urls_seo','mots_cles_seo']},
+      {title:'Certifications & établissements',emoji:'🏅',keys:['certifications','etablissements']},
+      {title:'Technique & hébergement',emoji:'🖥️',keys:['domaine','conserver_domaine','emails_pro','analytics','autonomie_contenu','maintenance','cahier_charges']},
+      {title:'Budget & délais',emoji:'💰',keys:['nb_pages','budget','delai','remarques']},
+    ];
+    let message='<div style="font-family:Arial,sans-serif;max-width:580px;margin:0 auto;padding:8px">';
+    for(const s of SECTIONS){
+      let rows='';
+      for(const k of s.keys){
+        if(!LABELS[k]||data[k]===undefined)continue;
+        const val=Array.isArray(data[k])?data[k].join(', '):data[k];
+        if(!val)continue;
+        rows+=`<tr><td style="padding:7px 12px;color:#6B7280;font-size:13px;vertical-align:top;width:38%;border-bottom:1px solid #F3F4F6">${LABELS[k]}</td><td style="padding:7px 12px;color:#111827;font-size:13px;vertical-align:top;border-bottom:1px solid #F3F4F6">${String(val).replace(/\n/g,'<br>')}</td></tr>`;
+      }
+      if(!rows)continue;
+      message+=`<div style="margin-bottom:18px"><div style="background:linear-gradient(90deg,#4A1B9A,#6C2BD9);padding:9px 14px;border-radius:8px 8px 0 0"><span style="color:#fff;font-size:13px;font-weight:bold">${s.emoji} ${s.title}</span></div><table style="width:100%;border-collapse:collapse;border:1px solid #E5E7EB;border-top:none">${rows}</table></div>`;
     }
+    message+='</div>';
     const params={
       name:data.nom||'Nouveau client',
-      title:'Brief refonte — '+(data.nom||'Nouveau client'),
+      title:'Brief refonte CCFBT — '+(data.nom||'Nouveau client'),
       email:data.email||'',
       message:message
     };
