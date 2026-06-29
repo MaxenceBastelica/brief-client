@@ -155,6 +155,24 @@
           <label>Interlocuteur principal (prénom, nom)</label>
           <input type="text" name="contact_nom" placeholder="Ex : Marie Martin">
         </div>
+        <div class="field">
+          <label>Qui valide / décide sur ce projet ?</label>
+          <span class="hint">La personne qui prend les décisions finales et valide les étapes</span>
+          <input type="text" name="decideur" placeholder="Ex : Le gérant, moi-même, le service communication…">
+        </div>
+        <div class="field">
+          <label>Réseaux sociaux à lier sur le site</label>
+          <span class="hint">Collez les liens, ou indiquez « aucun »</span>
+          <textarea name="reseaux_sociaux" placeholder="Ex : Facebook : fb.com/… — LinkedIn : … — Instagram : …"></textarea>
+        </div>
+        <div class="oui-non">
+          <label class="question">Avez-vous une fiche Google My Business à mettre en avant ?</label>
+          <div class="choices">
+            <label><input type="radio" name="google_business" value="oui"> Oui</label>
+            <label><input type="radio" name="google_business" value="non"> Non</label>
+            <label><input type="radio" name="google_business" value="a_creer"> À créer</label>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -262,6 +280,31 @@
           </div>
         </div>
         <div class="oui-non">
+          <label class="question">Faut-il récupérer les anciens articles de blog du site actuel ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="migration_blog" value="oui_tous"> Oui — tous les articles</label>
+            <label><input type="radio" name="migration_blog" value="oui_recents"> Oui — seulement les récents</label>
+            <label><input type="radio" name="migration_blog" value="non"> Non — repartir de zéro</label>
+            <label><input type="radio" name="migration_blog" value="pas_de_blog"> Pas de blog</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous afficher des témoignages / avis clients ?</label>
+          <div class="choices">
+            <label><input type="radio" name="temoignages" value="oui"> Oui — je les fournis</label>
+            <label><input type="radio" name="temoignages" value="avis_google"> Oui — via avis Google</label>
+            <label><input type="radio" name="temoignages" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous une section FAQ (questions fréquentes) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="faq" value="oui"> Oui — je fournis les questions</label>
+            <label><input type="radio" name="faq" value="oui_max"> Oui — à rédiger par MAX DESIGN</label>
+            <label><input type="radio" name="faq" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
           <label class="question">Souhaitez-vous afficher les logos de vos clients (O-I, Côte Bleue, Mousquetaires…) ? <span class="devis-badge">💶 DEVIS</span></label>
           <div class="choices">
             <label><input type="radio" name="logos_clients" value="oui"> Oui — logos fournis en haute qualité</label>
@@ -302,6 +345,10 @@
             <label><input type="checkbox" name="fonctionnalites" value="seo"><span class="check-icon">✓</span> Optimisation SEO</label>
             <label><input type="checkbox" name="fonctionnalites" value="rgpd"><span class="check-icon">✓</span> Conformité RGPD (mentions légales, politique de confidentialité, cookies)</label>
             <label><input type="checkbox" name="fonctionnalites" value="multilingue"><span class="check-icon">✓</span> Multilingue</label>
+            <label><input type="checkbox" name="fonctionnalites" value="carte_maps"><span class="check-icon">✓</span> Carte Google Maps interactive</label>
+            <label><input type="checkbox" name="fonctionnalites" value="whatsapp"><span class="check-icon">✓</span> Bouton WhatsApp / chat</label>
+            <label><input type="checkbox" name="fonctionnalites" value="newsletter"><span class="check-icon">✓</span> Newsletter / inscription mailing</label>
+            <label><input type="checkbox" name="fonctionnalites" value="avis_google"><span class="check-icon">✓</span> Avis Google affichés</label>
           </div>
         </div>
         <div class="field">
@@ -342,6 +389,15 @@
             <option>Minimaliste</option>
             <option>Pas de préférence</option>
           </select>
+        </div>
+        <div class="field">
+          <label>Couleurs préférées / à éviter</label>
+          <span class="hint">Codes couleur si vous les avez, sinon décrivez</span>
+          <input type="text" name="couleurs" placeholder="Ex : Bleu marine et blanc — éviter le rouge">
+        </div>
+        <div class="field">
+          <label>Polices / typographies imposées</label>
+          <input type="text" name="polices" placeholder="Ex : Montserrat — ou « pas de préférence »">
         </div>
       </div>
     </div>
@@ -398,6 +454,22 @@
           </div>
         </div>
         <div class="oui-non">
+          <label class="question">Souhaitez-vous des adresses email professionnelles (@votredomaine.fr) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="emails_pro" value="oui"> Oui — à créer</label>
+            <label><input type="radio" name="emails_pro" value="existe"> J'en ai déjà</label>
+            <label><input type="radio" name="emails_pro" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous un suivi des statistiques de fréquentation (Google Analytics) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="analytics" value="oui"> Oui</label>
+            <label><input type="radio" name="analytics" value="non"> Non</label>
+            <label><input type="radio" name="analytics" value="a_discuter"> À discuter</label>
+          </div>
+        </div>
+        <div class="oui-non">
           <label class="question">Le client souhaite-t-il pouvoir modifier le contenu lui-même après livraison ?</label>
           <div class="choices">
             <label><input type="radio" name="autonomie_contenu" value="oui"> Oui — interface d'administration souhaitée</label>
@@ -411,6 +483,13 @@
             <label><input type="radio" name="maintenance" value="oui"> Oui</label>
             <label><input type="radio" name="maintenance" value="non"> Non</label>
             <label><input type="radio" name="maintenance" value="a_discuter"> À discuter</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Disposez-vous déjà d'un cahier des charges pour ce projet ?</label>
+          <div class="choices">
+            <label><input type="radio" name="cahier_charges" value="oui"> Oui — je le transmets</label>
+            <label><input type="radio" name="cahier_charges" value="non"> Non</label>
           </div>
         </div>
       </div>
@@ -491,19 +570,24 @@ function showToast(msg,type='ok'){
 
 const LABELS={
   nom:'Nom / Entreprise',adresse:'Adresse',siret:'SIRET',email:'Email',tel:'Téléphone',
-  contact_nom:'Interlocuteur',url_actuel:'URL site actuel',problemes_actuels:'Problèmes actuels',
+  contact_nom:'Interlocuteur',decideur:'Décideur / validateur',
+  reseaux_sociaux:'Réseaux sociaux',google_business:'Google My Business ?',
+  url_actuel:'URL site actuel',problemes_actuels:'Problèmes actuels',
   a_conserver:'À conserver',a_supprimer:'À supprimer / repenser',objectifs:'Objectifs',
   cible:'Cible',references:'Références',formations:'Formations à réintégrer',
   textes_formations:'Textes formations',has_photos:'Photos disponibles ?',
+  migration_blog:'Migration blog',temoignages:'Témoignages / avis',faq:'FAQ',
   fonctionnalites:'Fonctionnalités',fonctionnalites_autres:'Autres fonctionnalités',
   logo:'Logo',has_charte:'Charte graphique ?',style_visuel:'Style visuel',
+  couleurs:'Couleurs',polices:'Polices',
   structure_formations:'Structure formations',modalites_formations:'Modalités formations',
   page_financements:'Page Financements',espace_stagiaire:'Espace stagiaires',
   logos_clients:'Logos clients',zones_geo:'Zones géographiques',accessibilite:'Accessibilité handicap',
   seo_actuel:'SEO actuel ?',urls_seo:'URLs SEO à conserver',
   certifications:'Certifications / labels',etablissements:'Établissements',
   domaine:'Nom de domaine',conserver_domaine:'Conserver le domaine ?',
-  autonomie_contenu:'Autonomie contenu ?',
+  emails_pro:'Emails professionnels ?',analytics:'Google Analytics ?',
+  autonomie_contenu:'Autonomie contenu ?',cahier_charges:'Cahier des charges ?',
   maintenance:'Maintenance ?',budget:'Budget',delai:'Délai',remarques:'Remarques'
 };
 
