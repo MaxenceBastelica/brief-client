@@ -288,7 +288,42 @@
       </div>
     </div>
 
-    <!-- 7. TECHNIQUE -->
+    <!-- 7. SEO & RÉFÉRENCEMENT -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">🔍</span><h2>SEO & référencement</h2></div>
+      <div class="section-body">
+        <div class="oui-non">
+          <label class="question">Votre site actuel est-il bien référencé sur Google ?</label>
+          <div class="choices">
+            <label><input type="radio" name="seo_actuel" value="oui"> Oui — à préserver</label>
+            <label><input type="radio" name="seo_actuel" value="non"> Non / je ne sais pas</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Y a-t-il des pages importantes à conserver absolument (URLs) ?</label>
+          <span class="hint">Ex : pages bien positionnées sur Google qu'il ne faut pas supprimer</span>
+          <textarea name="urls_seo" placeholder="Ex : /formations/sst, /contact…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. CERTIFICATIONS & ÉTABLISSEMENTS -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">🏅</span><h2>Certifications & établissements</h2></div>
+      <div class="section-body">
+        <div class="field">
+          <label>Quelles certifications / labels sont à afficher ? <span style="color:var(--rouge)">*</span></label>
+          <span class="hint">Ex : QUALIOPI, INRS, Datadock… Avez-vous les logos en haute qualité ?</span>
+          <textarea name="certifications" placeholder="Ex : QUALIOPI (logo fourni), partenaire INRS (logo à récupérer)…" required></textarea>
+        </div>
+        <div class="field">
+          <label>Y a-t-il plusieurs adresses / établissements à afficher ?</label>
+          <textarea name="etablissements" placeholder="Ex : Siège : 12 rue des Lilas, Sète — Antenne : Montpellier, Béziers…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. TECHNIQUE -->
     <div class="section">
       <div class="section-header"><span class="emoji">🖥️</span><h2>Technique & hébergement</h2></div>
       <div class="section-body">
@@ -302,6 +337,14 @@
             <label><input type="radio" name="conserver_domaine" value="oui"> Oui</label>
             <label><input type="radio" name="conserver_domaine" value="non"> Non — en changer</label>
             <label><input type="radio" name="conserver_domaine" value="a_discuter"> À discuter</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Le client souhaite-t-il pouvoir modifier le contenu lui-même après livraison ?</label>
+          <div class="choices">
+            <label><input type="radio" name="autonomie_contenu" value="oui"> Oui — interface d'administration souhaitée</label>
+            <label><input type="radio" name="autonomie_contenu" value="non"> Non — géré par MAX DESIGN</label>
+            <label><input type="radio" name="autonomie_contenu" value="a_discuter"> À discuter</label>
           </div>
         </div>
         <div class="oui-non">
@@ -396,7 +439,10 @@ const LABELS={
   textes_formations:'Textes formations',has_photos:'Photos disponibles ?',
   fonctionnalites:'Fonctionnalités',fonctionnalites_autres:'Autres fonctionnalités',
   logo:'Logo',has_charte:'Charte graphique ?',style_visuel:'Style visuel',
+  seo_actuel:'SEO actuel ?',urls_seo:'URLs SEO à conserver',
+  certifications:'Certifications / labels',etablissements:'Établissements',
   domaine:'Nom de domaine',conserver_domaine:'Conserver le domaine ?',
+  autonomie_contenu:'Autonomie contenu ?',
   maintenance:'Maintenance ?',budget:'Budget',delai:'Délai',remarques:'Remarques'
 };
 
