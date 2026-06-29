@@ -209,7 +209,40 @@
         <div class="field">
           <label>Listez les formations à réintégrer dans le nouveau site <span style="color:var(--rouge)">*</span></label>
           <span class="hint">Nommez chaque formation, une par ligne si possible</span>
-          <textarea name="formations" placeholder="Ex :&#10;- SST (Sauveteur Secouriste du Travail)&#10;- Habilitation électrique&#10;- Intervention incendie&#10;- PRAP…" required style="min-height:130px"></textarea>
+          <textarea name="formations" placeholder="Ex :&#10;- SST (Sauveteur Secouriste du Travail)&#10;- MAC SST&#10;- Habilitation électrique&#10;- Équipiers incendie 1ère / 2e intervention&#10;- Chargé d'évacuation&#10;- PRAP IBC&#10;- MAC PRAP IBC&#10;- Gestes Qui Sauvent…" required style="min-height:130px"></textarea>
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous une page dédiée par formation ou une page catalogue globale ?</label>
+          <div class="choices">
+            <label><input type="radio" name="structure_formations" value="page_par_formation"> Une page par formation</label>
+            <label><input type="radio" name="structure_formations" value="catalogue"> Page catalogue globale</label>
+            <label><input type="radio" name="structure_formations" value="les_deux"> Les deux</label>
+            <label><input type="radio" name="structure_formations" value="a_discuter"> À discuter</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Les formations sont-elles proposées en intra et/ou inter-entreprises ?</label>
+          <div class="choices">
+            <label><input type="radio" name="modalites_formations" value="intra"> Intra uniquement</label>
+            <label><input type="radio" name="modalites_formations" value="inter"> Inter uniquement</label>
+            <label><input type="radio" name="modalites_formations" value="les_deux"> Les deux</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">La page Financements est-elle à conserver ? Qui la met à jour ?</label>
+          <div class="choices">
+            <label><input type="radio" name="page_financements" value="oui_client"> Oui — je la gère moi-même</label>
+            <label><input type="radio" name="page_financements" value="oui_max"> Oui — gérée par MAX DESIGN</label>
+            <label><input type="radio" name="page_financements" value="non"> Non — à supprimer</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">L'Espace Stagiaires est-il un lien externe ou à intégrer au site ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="espace_stagiaire" value="lien_externe"> Lien externe (redirection)</label>
+            <label><input type="radio" name="espace_stagiaire" value="integre"> Intégré au site</label>
+            <label><input type="radio" name="espace_stagiaire" value="a_discuter"> À discuter</label>
+          </div>
         </div>
         <div class="oui-non">
           <label class="question">Les textes des formations sont-ils déjà rédigés ? <span class="devis-badge">💶 DEVIS</span></label>
@@ -225,6 +258,29 @@
             <label><input type="radio" name="has_photos" value="oui"> Oui — je les fournis</label>
             <label><input type="radio" name="has_photos" value="non"> Non — à sourcer par MAX DESIGN</label>
             <label><input type="radio" name="has_photos" value="stock"> Banque d'images libres de droits</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous afficher les logos de vos clients (O-I, Côte Bleue, Mousquetaires…) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="logos_clients" value="oui"> Oui — logos fournis en haute qualité</label>
+            <label><input type="radio" name="logos_clients" value="oui_a_recuperer"> Oui — logos à récupérer</label>
+            <label><input type="radio" name="logos_clients" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous une section par zone géographique (Sète, Balaruc, Frontignan, Mèze…) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="zones_geo" value="oui"> Oui</label>
+            <label><input type="radio" name="zones_geo" value="non"> Non</label>
+            <label><input type="radio" name="zones_geo" value="a_discuter"> À discuter</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">La mention d'accessibilité handicap est-elle à maintenir sur le nouveau site ?</label>
+          <div class="choices">
+            <label><input type="radio" name="accessibilite" value="oui"> Oui</label>
+            <label><input type="radio" name="accessibilite" value="non"> Non</label>
           </div>
         </div>
       </div>
@@ -439,6 +495,9 @@ const LABELS={
   textes_formations:'Textes formations',has_photos:'Photos disponibles ?',
   fonctionnalites:'Fonctionnalités',fonctionnalites_autres:'Autres fonctionnalités',
   logo:'Logo',has_charte:'Charte graphique ?',style_visuel:'Style visuel',
+  structure_formations:'Structure formations',modalites_formations:'Modalités formations',
+  page_financements:'Page Financements',espace_stagiaire:'Espace stagiaires',
+  logos_clients:'Logos clients',zones_geo:'Zones géographiques',accessibilite:'Accessibilité handicap',
   seo_actuel:'SEO actuel ?',urls_seo:'URLs SEO à conserver',
   certifications:'Certifications / labels',etablissements:'Établissements',
   domaine:'Nom de domaine',conserver_domaine:'Conserver le domaine ?',
