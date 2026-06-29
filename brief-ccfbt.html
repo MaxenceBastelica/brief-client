@@ -714,7 +714,21 @@ document.getElementById('brief-form').addEventListener('submit',async function(e
       if(!rows)continue;
       message+=`<tr><td colspan="2" style="padding-top:22px"></td></tr><tr><td colspan="2" bgcolor="#6C2BD9" style="background-color:#6C2BD9;padding:11px 16px"><span style="color:#ffffff;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">${s.emoji}&nbsp; ${s.title}</span></td></tr>${rows}`;
     }
-    message+='<tr><td colspan="2" style="padding-top:16px"></td></tr></table>';
+    const exportData={
+      title:'Brief refonte CCFBT — '+(data.nom||'Client'),
+      sections:SECTIONS.map(s=>({
+        title:s.title,emoji:s.emoji,
+        rows:s.keys.reduce((acc,k)=>{
+          if(!LABELS[k]||data[k]===undefined)return acc;
+          const val=Array.isArray(data[k])?data[k].join(', '):String(data[k]);
+          if(val.trim())acc.push([LABELS[k],val]);
+          return acc;
+        },[])
+      })).filter(s=>s.rows.length>0)
+    };
+    const exportHash=btoa(unescape(encodeURIComponent(JSON.stringify(exportData))));
+    const downloadUrl='https://maxencebastelica.github.io/brief-client/view-brief.html#'+exportHash;
+    message+=`<tr><td colspan="2" style="padding-top:16px"></td></tr><tr><td colspan="2" align="center" style="padding:24px 16px;border-top:2px solid #EDE9FF"><a href="${downloadUrl}" style="display:inline-block;background-color:#6C2BD9;color:#ffffff;padding:13px 30px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:700">⬇️ Télécharger le brief (.txt)</a></td></tr></table>`;
     const params={
       name:data.nom||'Nouveau client',
       title:'Brief refonte CCFBT — '+(data.nom||'Nouveau client'),

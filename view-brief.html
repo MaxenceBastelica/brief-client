@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brief — MAX DESIGN</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --violet:#6C2BD9; --violet-dark:#4A1B9A; --violet-light:#EDE9FF; --violet-pale:#F5F3FF; --gris:#374151; --gris-light:#9CA3AF; --border:#E5E7EB; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'DM Sans',sans-serif; background:var(--violet-pale); color:var(--gris); min-height:100vh; padding:2rem 1rem 4rem; }
+  .container { max-width:720px; margin:0 auto; }
+  .header { background:linear-gradient(135deg,var(--violet-dark),var(--violet)); border-radius:16px; padding:2rem; text-align:center; margin-bottom:1.5rem; }
+  .header h1 { color:#fff; font-size:1.5rem; font-weight:700; }
+  .header p { color:rgba(255,255,255,0.75); font-size:0.9rem; margin-top:0.3rem; }
+  .download-wrap { text-align:center; margin-bottom:1.5rem; }
+  .btn-download { display:inline-flex; align-items:center; gap:0.5rem; background:var(--violet); color:#fff; font-family:'DM Sans',sans-serif; font-size:1rem; font-weight:700; padding:0.9rem 2.5rem; border:none; border-radius:12px; cursor:pointer; box-shadow:0 4px 16px rgba(108,43,217,0.35); transition:transform 0.2s; }
+  .btn-download:hover { transform:translateY(-2px); }
+  .section { background:#fff; border-radius:12px; overflow:hidden; margin-bottom:1rem; border:1px solid var(--border); }
+  .section-head { background:linear-gradient(90deg,var(--violet-dark),var(--violet)); padding:0.8rem 1.2rem; }
+  .section-head h2 { color:#fff; font-size:0.9rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; }
+  .row { display:flex; border-bottom:1px solid var(--violet-light); }
+  .row:last-child { border-bottom:none; }
+  .row:nth-child(odd) { background:var(--violet-pale); }
+  .label { padding:9px 14px; color:var(--gris-light); font-size:0.82rem; width:38%; flex-shrink:0; }
+  .val { padding:9px 14px; color:#111827; font-size:0.85rem; font-weight:600; white-space:pre-wrap; word-break:break-word; }
+  .empty { color:#D1D5DB; font-style:italic; }
+  .footer { text-align:center; font-size:0.75rem; color:var(--gris-light); margin-top:2rem; }
+  #error { text-align:center; padding:3rem; color:var(--gris-light); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1 id="brief-title">Brief client</h1>
+    <p>MAX DESIGN · Maxence Bastelica</p>
+  </div>
+  <div class="download-wrap">
+    <button class="btn-download" id="btn-dl">⬇️ Télécharger le brief (.txt)</button>
+  </div>
+  <div id="content"></div>
+  <div id="error" style="display:none">❌ Données introuvables — ce lien est peut-être invalide.</div>
+  <div class="footer">MAX DESIGN · max.dev.design@gmail.com · 06 73 08 45 32</div>
+</div>
+<script>
+let exportData=null;
+try{
+  const hash=location.hash.slice(1);
+  if(!hash)throw new Error('no hash');
+  exportData=JSON.parse(decodeURIComponent(escape(atob(hash))));
+}catch(e){
+  document.getElementById('error').style.display='block';
+  document.getElementById('btn-dl').disabled=true;
+}
+
+if(exportData){
+  document.getElementById('brief-title').textContent=exportData.title||'Brief client';
+  document.title=exportData.title||'Brief — MAX DESIGN';
+  const content=document.getElementById('content');
+  for(const s of exportData.sections){
+    const sec=document.createElement('div');sec.className='section';
+    sec.innerHTML=`<div class="section-head"><h2>${s.emoji} ${s.title}</h2></div>`;
+    for(const [label,val] of s.rows){
+      const row=document.createElement('div');row.className='row';
+      row.innerHTML=`<div class="label">${label}</div><div class="val ${val?'':'empty'}">${val||'—'}</div>`;
+      sec.appendChild(row);
+    }
+    content.appendChild(sec);
+  }
+}
+
+document.getElementById('btn-dl').addEventListener('click',function(){
+  if(!exportData)return;
+  let txt=exportData.title+'\n'+'='.repeat(60)+'\n\n';
+  for(const s of exportData.sections){
+    txt+=s.emoji+' '+s.title.toUpperCase()+'\n'+'─'.repeat(40)+'\n';
+    for(const [label,val] of s.rows){
+      txt+=label+' : '+val+'\n';
+    }
+    txt+='\n';
+  }
+  const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  const slug=(exportData.title||'brief').split('—').pop().trim().toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+  a.download='brief-'+slug+'.txt';
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);URL.revokeObjectURL(url);
+});
+</script>
+</body>
+</html>
