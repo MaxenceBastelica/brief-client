@@ -420,6 +420,9 @@ document.getElementById('brief-form').addEventListener('submit',async function(e
     for(let[k,v]of Object.entries(data)){
       params[k]=Array.isArray(v)?v.join(', '):v||'—';
     }
+    params.name=data.nom||'Nouveau client';
+    params.title='Brief client — '+(data.nom||'Nouveau client');
+    params.message='Brief client soumis via le formulaire.';
     await emailjs.send('service_fscstcc','template_huztaah',params);
     document.getElementById('resume-section').classList.add('visible');
     document.getElementById('resume-section').scrollIntoView({behavior:'smooth',block:'start'});
