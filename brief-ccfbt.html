@@ -320,6 +320,11 @@
             <label><input type="radio" name="zones_geo" value="a_discuter"> À discuter</label>
           </div>
         </div>
+        <div class="field">
+          <label>Chiffres clés à mettre en avant sur le site</label>
+          <span class="hint">Ex : "300 entreprises formées", "98% de satisfaction", "20 ans d'expérience" — laissez vide si aucun</span>
+          <textarea name="chiffres_cles" placeholder="Ex : 500 stagiaires/an — 98% de taux de satisfaction — 15 ans d'expérience…"></textarea>
+        </div>
         <div class="oui-non">
           <label class="question">La mention d'accessibilité handicap est-elle à maintenir sur le nouveau site ?</label>
           <div class="choices">
@@ -386,6 +391,7 @@
             <label><input type="checkbox" name="fonctionnalites" value="whatsapp"><span class="check-icon">✓</span> Bouton WhatsApp / chat</label>
             <label><input type="checkbox" name="fonctionnalites" value="newsletter"><span class="check-icon">✓</span> Newsletter / inscription mailing</label>
             <label><input type="checkbox" name="fonctionnalites" value="avis_google"><span class="check-icon">✓</span> Avis Google affichés</label>
+            <label><input type="checkbox" name="fonctionnalites" value="formulaire_devis_formation"><span class="check-icon">✓</span> Formulaire demande de devis formation (nb stagiaires, formation souhaitée, date…)</label>
           </div>
         </div>
         <div class="field">
@@ -455,6 +461,11 @@
           <span class="hint">Ex : pages bien positionnées sur Google qu'il ne faut pas supprimer</span>
           <textarea name="urls_seo" placeholder="Ex : /formations/sst, /contact…"></textarea>
         </div>
+        <div class="field">
+          <label>Mots-clés sur lesquels vous souhaitez apparaître sur Google</label>
+          <span class="hint">Ex : formation SST Sète, habilitation électrique Montpellier, PRAP Hérault…</span>
+          <textarea name="mots_cles_seo" placeholder="Listez vos mots-clés prioritaires, un par ligne si possible…"></textarea>
+        </div>
       </div>
     </div>
 
@@ -474,7 +485,7 @@
       </div>
     </div>
 
-    <!-- 9. TECHNIQUE -->
+    <!-- 10. TECHNIQUE -->
     <div class="section">
       <div class="section-header"><span class="emoji">🖥️</span><h2>Technique & hébergement</h2></div>
       <div class="section-body">
@@ -634,7 +645,8 @@ const LABELS={
   logos_clients:'Logos clients',zones_geo:'Zones géographiques',accessibilite:'Accessibilité handicap',
   format_pedagogique:'Format pédagogique',logiciel_gestion:'Logiciel de gestion',
   calendrier_sessions:'Calendrier sessions ?',page_equipe:'Page équipe / formateurs ?',
-  seo_actuel:'SEO actuel ?',urls_seo:'URLs SEO à conserver',
+  chiffres_cles:'Chiffres clés à mettre en avant',
+  seo_actuel:'SEO actuel ?',urls_seo:'URLs SEO à conserver',mots_cles_seo:'Mots-clés SEO cibles',
   certifications:'Certifications / labels',etablissements:'Établissements',
   domaine:'Nom de domaine',conserver_domaine:'Conserver le domaine ?',
   emails_pro:'Emails professionnels ?',analytics:'Google Analytics ?',
