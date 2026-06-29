@@ -664,8 +664,14 @@ document.getElementById('brief-form').addEventListener('submit',async function(e
   const fd=new FormData(this);
   const data={};
   for(let[k,v]of fd.entries()){
-    if(data[k]){data[k]=Array.isArray(data[k])?[...data[k],v]:[data[k],v];}
-    else{data[k]=v;}
+    const input=[...document.querySelectorAll(`input[name="${k}"]`)].find(el=>el.value===v);
+    let display=v;
+    if(input&&(input.type==='radio'||input.type==='checkbox')){
+      const lbl=input.closest('label');
+      if(lbl) display=lbl.textContent.trim().replace(/^✓\s*/,'');
+    }
+    if(data[k]){data[k]=Array.isArray(data[k])?[...data[k],display]:[data[k],display];}
+    else{data[k]=display;}
   }
 
   const grid=document.getElementById('resume-grid');
