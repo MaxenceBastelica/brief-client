@@ -330,7 +330,44 @@
       </div>
     </div>
 
-    <!-- 5. NOUVELLES FONCTIONNALITÉS -->
+    <!-- 5. ORGANISATION DES FORMATIONS -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">📚</span><h2>Organisation des formations</h2></div>
+      <div class="section-body">
+        <div class="checkboxes">
+          <label class="question">Format pédagogique proposé <span style="color:var(--rouge)">*</span></label>
+          <div class="options">
+            <label><input type="checkbox" name="format_pedagogique" value="presentiel"><span class="check-icon">✓</span> Présentiel</label>
+            <label><input type="checkbox" name="format_pedagogique" value="distanciel"><span class="check-icon">✓</span> Distanciel (visio)</label>
+            <label><input type="checkbox" name="format_pedagogique" value="elearning"><span class="check-icon">✓</span> E-learning (plateforme en ligne)</label>
+            <label><input type="checkbox" name="format_pedagogique" value="mixte"><span class="check-icon">✓</span> Mixte (présentiel + distanciel)</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Logiciel de gestion des formations utilisé</label>
+          <span class="hint">Ex : Digiforma, OfficeDeFormation, Edusign, un tableur Excel… ou aucun</span>
+          <input type="text" name="logiciel_gestion" placeholder="Ex : Digiforma — ou « Aucun »">
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous afficher un calendrier public des sessions sur le site ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="calendrier_sessions" value="oui"> Oui</label>
+            <label><input type="radio" name="calendrier_sessions" value="non"> Non</label>
+            <label><input type="radio" name="calendrier_sessions" value="a_discuter"> À discuter</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous une page de présentation de l'équipe / des formateurs ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="page_equipe" value="oui_fiches"> Oui — avec fiches individuelles</label>
+            <label><input type="radio" name="page_equipe" value="oui_simple"> Oui — présentation simple</label>
+            <label><input type="radio" name="page_equipe" value="non"> Non</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. NOUVELLES FONCTIONNALITÉS -->
     <div class="section">
       <div class="section-header"><span class="emoji">⚙️</span><h2>Fonctionnalités souhaitées</h2></div>
       <div class="section-body">
@@ -358,7 +395,7 @@
       </div>
     </div>
 
-    <!-- 6. IDENTITÉ VISUELLE -->
+    <!-- 7. IDENTITÉ VISUELLE -->
     <div class="section">
       <div class="section-header"><span class="emoji">🎨</span><h2>Identité visuelle</h2></div>
       <div class="section-body">
@@ -402,7 +439,7 @@
       </div>
     </div>
 
-    <!-- 7. SEO & RÉFÉRENCEMENT -->
+    <!-- 8. SEO & RÉFÉRENCEMENT -->
     <div class="section">
       <div class="section-header"><span class="emoji">🔍</span><h2>SEO & référencement</h2></div>
       <div class="section-body">
@@ -421,7 +458,7 @@
       </div>
     </div>
 
-    <!-- 8. CERTIFICATIONS & ÉTABLISSEMENTS -->
+    <!-- 9. CERTIFICATIONS & ÉTABLISSEMENTS -->
     <div class="section">
       <div class="section-header"><span class="emoji">🏅</span><h2>Certifications & établissements</h2></div>
       <div class="section-body">
@@ -495,10 +532,22 @@
       </div>
     </div>
 
-    <!-- 8. BUDGET & DÉLAIS -->
+    <!-- 10. BUDGET & DÉLAIS -->
     <div class="section">
       <div class="section-header"><span class="emoji">💰</span><h2>Budget & délais</h2></div>
       <div class="section-body">
+        <div class="field">
+          <label>Nombre de pages estimé pour le nouveau site <span style="color:var(--rouge)">*</span></label>
+          <span class="hint">Comptez chaque page distincte : accueil, contact, à propos, chaque formation si page dédiée…</span>
+          <select name="nb_pages" required>
+            <option value="">— Sélectionner —</option>
+            <option>Moins de 5 pages</option>
+            <option>5 à 10 pages</option>
+            <option>10 à 20 pages</option>
+            <option>Plus de 20 pages</option>
+            <option>Je ne sais pas</option>
+          </select>
+        </div>
         <div class="field">
           <label>Budget global envisagé <span style="color:var(--rouge)">*</span></label>
           <select name="budget" required>
@@ -583,12 +632,14 @@ const LABELS={
   structure_formations:'Structure formations',modalites_formations:'Modalités formations',
   page_financements:'Page Financements',espace_stagiaire:'Espace stagiaires',
   logos_clients:'Logos clients',zones_geo:'Zones géographiques',accessibilite:'Accessibilité handicap',
+  format_pedagogique:'Format pédagogique',logiciel_gestion:'Logiciel de gestion',
+  calendrier_sessions:'Calendrier sessions ?',page_equipe:'Page équipe / formateurs ?',
   seo_actuel:'SEO actuel ?',urls_seo:'URLs SEO à conserver',
   certifications:'Certifications / labels',etablissements:'Établissements',
   domaine:'Nom de domaine',conserver_domaine:'Conserver le domaine ?',
   emails_pro:'Emails professionnels ?',analytics:'Google Analytics ?',
   autonomie_contenu:'Autonomie contenu ?',cahier_charges:'Cahier des charges ?',
-  maintenance:'Maintenance ?',budget:'Budget',delai:'Délai',remarques:'Remarques'
+  maintenance:'Maintenance ?',nb_pages:'Nombre de pages estimé',budget:'Budget',delai:'Délai',remarques:'Remarques'
 };
 
 document.getElementById('brief-form').addEventListener('submit',async function(e){
