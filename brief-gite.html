@@ -24,45 +24,29 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'DM Sans', sans-serif; background: var(--gris-fond); color: var(--gris-texte); min-height: 100vh; padding: 2rem 1rem 4rem; }
-
-  /* HEADER */
   .header { background: linear-gradient(135deg, var(--violet-dark) 0%, var(--violet) 60%, var(--violet-mid) 100%); border-radius: 20px; padding: 2.5rem 2rem 2rem; text-align: center; margin-bottom: 1.5rem; position: relative; overflow: hidden; max-width: 780px; margin-inline: auto; }
   .header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 60%); }
   .header h1 { font-size: 1.9rem; font-weight: 700; color: #fff; letter-spacing: -0.03em; }
   .header p  { font-size: 0.95rem; color: rgba(255,255,255,0.75); margin-top: 0.4rem; }
   .header .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: #fff; font-size: 0.78rem; padding: 0.3rem 0.9rem; border-radius: 999px; margin-top: 1rem; font-family: 'DM Mono', monospace; }
-
-  /* CONTAINER */
   .container { max-width: 780px; margin: 0 auto; }
-
-  /* ALERTS */
   .alert-prio { background: var(--violet-pale); border: 1.5px solid var(--violet-mid); border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; display: flex; gap: 0.8rem; align-items: flex-start; }
   .alert-prio .icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
   .alert-prio p { font-size: 0.88rem; color: var(--violet-dark); font-weight: 500; line-height: 1.5; }
   .alert-prio strong { color: var(--violet); }
   .alert-warn { background: #FFF7ED; border: 1.5px solid var(--orange); border-radius: 10px; padding: 0.9rem 1.1rem; font-size: 0.83rem; color: #92400E; line-height: 1.5; }
   .alert-warn strong { color: #B45309; }
-  .alert-vert { background: #ECFDF5; border: 1.5px solid #6EE7B7; border-radius: 10px; padding: 0.9rem 1.1rem; font-size: 0.83rem; color: #065F46; line-height: 1.5; }
-  .alert-vert strong { color: #047857; }
-
-  /* PROGRESS */
   .progress-bar-wrap { background: var(--blanc); border-radius: 16px; border: 1px solid var(--gris-border); padding: 1rem 1.4rem; margin-bottom: 1.2rem; box-shadow: 0 2px 8px rgba(108,43,217,0.06); }
   .progress-label { font-size: 0.82rem; color: var(--gris-light); margin-bottom: 0.5rem; display: flex; justify-content: space-between; }
   .progress-label span { font-weight: 600; color: var(--violet); }
   .progress-track { height: 6px; background: var(--gris-border); border-radius: 999px; overflow: hidden; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--violet-dark), var(--violet-mid)); border-radius: 999px; width: 0%; transition: width 0.4s ease; }
-
-  /* SECTIONS */
   .section { background: var(--blanc); border-radius: 16px; overflow: hidden; margin-bottom: 1.2rem; border: 1px solid var(--gris-border); box-shadow: 0 2px 8px rgba(108,43,217,0.06); }
   .section-header { background: linear-gradient(90deg, var(--violet-dark), var(--violet)); padding: 0.9rem 1.4rem; display: flex; align-items: center; gap: 0.6rem; }
   .section-header .emoji { font-size: 1.1rem; }
   .section-header h2 { font-size: 1rem; font-weight: 600; color: #fff; letter-spacing: -0.01em; }
   .section-body { padding: 1.4rem; display: flex; flex-direction: column; gap: 1.1rem; }
-
-  /* DEVIS BADGE */
   .devis-badge { display: inline-flex; align-items: center; background: #ECFDF5; border: 1px solid #6EE7B7; color: #065F46; font-size: 0.72rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 6px; margin-left: 0.4rem; vertical-align: middle; letter-spacing: 0.02em; }
-
-  /* CHAMPS */
   .field { display: flex; flex-direction: column; gap: 0.35rem; }
   .field label { font-size: 0.85rem; font-weight: 600; color: var(--gris-texte); }
   .field .hint { font-size: 0.78rem; color: var(--gris-light); margin-top: -0.2rem; }
@@ -75,8 +59,6 @@
   .field input.error, .field textarea.error { border-color: var(--rouge); }
   .field textarea { resize: vertical; min-height: 80px; }
   .field select { cursor: pointer; }
-
-  /* OUI / NON */
   .oui-non { display: flex; flex-direction: column; gap: 0.35rem; }
   .oui-non label.question { font-size: 0.85rem; font-weight: 600; color: var(--gris-texte); }
   .oui-non .choices { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.2rem; }
@@ -84,8 +66,6 @@
   .oui-non .choices input[type="radio"] { display: none; }
   .oui-non .choices label:has(input:checked) { background: var(--violet-light); border-color: var(--violet); color: var(--violet-dark); font-weight: 600; }
   .oui-non .choices label:hover { border-color: var(--violet-mid); }
-
-  /* CASES À COCHER */
   .checkboxes { display: flex; flex-direction: column; gap: 0.35rem; }
   .checkboxes label.question { font-size: 0.85rem; font-weight: 600; color: var(--gris-texte); }
   .checkboxes .options { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.2rem; }
@@ -95,22 +75,14 @@
   .checkboxes .options label:hover { border-color: var(--violet-mid); }
   .check-icon { font-size: 0.7rem; opacity: 0; transition: opacity 0.15s; }
   .checkboxes .options label:has(input:checked) .check-icon { opacity: 1; }
-
-  /* SUBMIT */
   .submit-wrap { text-align: center; margin-top: 2rem; }
   .btn-submit { display: inline-flex; align-items: center; gap: 0.6rem; background: linear-gradient(135deg, var(--violet-dark), var(--violet)); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; padding: 0.9rem 2.5rem; border: none; border-radius: 12px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(108,43,217,0.35); }
   .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(108,43,217,0.45); }
   .btn-submit:active { transform: translateY(0); }
-
-  /* TOAST */
   #toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--vert); color: #fff; padding: 0.9rem 2rem; border-radius: 12px; font-size: 0.95rem; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.35s ease; z-index: 999; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
   #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   #toast.error { background: var(--rouge); }
-
-  /* FOOTER */
   .footer { text-align: center; font-size: 0.78rem; color: var(--gris-light); margin-top: 2rem; font-family: 'DM Mono', monospace; }
-
-  /* RÉSUMÉ */
   #resume-section { display: none; }
   #resume-section.visible { display: block; }
   .resume-box { background: var(--violet-pale); border: 2px solid var(--violet); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.2rem; }
@@ -120,7 +92,6 @@
   .resume-item .rlabel { color: var(--gris-light); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
   .resume-item .rval { color: var(--noir); font-weight: 500; word-break: break-word; }
   .resume-item .rval.empty { color: var(--gris-border); font-style: italic; }
-
   @media (max-width: 600px) {
     .resume-grid { grid-template-columns: 1fr; }
     .oui-non .choices { flex-direction: column; }
@@ -130,26 +101,22 @@
 <body>
 <div class="container">
 
-  <!-- HEADER -->
   <div class="header">
     <h1>📋 Brief Client</h1>
     <p>Création de site vitrine &amp; réservation — Gîte &amp; Escape Game</p>
     <div class="badge">MAX DESIGN · Maxence Bastelica</div>
   </div>
 
-  <!-- ALERTE PRIORITÉ -->
   <div class="alert-prio">
     <span class="icon">⚡</span>
     <p><strong>Informations prioritaires à renseigner en premier :</strong> SIRET · Nom du gîte · Nombre de chambres/couchages · Nombre de salles escape game · Budget</p>
   </div>
 
-  <!-- NOTE DEVIS -->
   <div class="alert-prio" style="background:#ECFDF5; border-color:#6EE7B7;">
     <span class="icon">💶</span>
     <p style="color:#065F46;">Les questions marquées <strong style="color:#047857;">💶 DEVIS</strong> impactent directement l'estimation de prix finale.</p>
   </div>
 
-  <!-- PROGRESS -->
   <div class="progress-bar-wrap">
     <div class="progress-label">Complétion du formulaire <span id="pct">0%</span></div>
     <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
@@ -203,6 +170,17 @@
       <div class="section-header"><span class="emoji">🌐</span><h2>Domaine &amp; identité visuelle</h2></div>
       <div class="section-body">
         <div class="oui-non">
+          <label class="question">Avez-vous un site existant à remplacer / refondre ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_site_existant" value="oui"> Oui — refonte</label>
+            <label><input type="radio" name="has_site_existant" value="non"> Non — création from scratch</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Si oui — URL du site existant</label>
+          <input type="text" name="url_site_existant" placeholder="Ex : https://ancien-site.fr">
+        </div>
+        <div class="oui-non">
           <label class="question">Vous avez déjà un nom de domaine ?</label>
           <div class="choices">
             <label><input type="radio" name="has_domaine" value="oui"> Oui</label>
@@ -254,7 +232,7 @@
       </div>
     </div>
 
-    <!-- 3. GÎTE — HÉBERGEMENT -->
+    <!-- 3. GÎTE & HÉBERGEMENT -->
     <div class="section">
       <div class="section-header"><span class="emoji">🛏️</span><h2>Gîte &amp; hébergement</h2></div>
       <div class="section-body">
@@ -294,13 +272,43 @@
           </div>
         </div>
         <div class="field">
-          <label>Tarifs pratiqués (fourchette)</label>
-          <span class="hint">Ex : 350€/nuit semaine, 450€/nuit week-end — selon saison</span>
+          <label>Tarifs pratiqués (fourchette générale)</label>
+          <span class="hint">Ex : 350€/nuit semaine, 450€/nuit week-end</span>
           <input type="text" name="tarifs_gite" placeholder="Ex : 350€ à 600€ la nuit selon saison et durée">
+        </div>
+        <div class="field">
+          <label>Tarifs différenciés haute / basse saison</label>
+          <span class="hint">Si les tarifs varient selon la période, précisez ici</span>
+          <input type="text" name="tarifs_saisonniers" placeholder="Ex : Basse : 350€/nuit · Haute (juil/août) : 550€/nuit · Week-end : 420€/nuit">
         </div>
         <div class="field">
           <label>Durée minimum de séjour</label>
           <input type="text" name="duree_min" placeholder="Ex : 2 nuits minimum en week-end, 1 semaine en juillet/août">
+        </div>
+        <div class="field">
+          <label>Check-in / Check-out — heures &amp; remise des clés</label>
+          <span class="hint">Comment les clients récupèrent-ils les clés ?</span>
+          <input type="text" name="checkin_checkout" placeholder="Ex : Arrivée 16h / Départ 11h — boîte à clés sécurisée ou accueil physique">
+        </div>
+        <div class="field">
+          <label>Taxe de séjour — comment est-elle perçue ?</label>
+          <input type="text" name="taxe_sejour" placeholder="Ex : 0,90€/personne/nuit — incluse dans le tarif ou en supplément, encaissée sur place ou en ligne">
+        </div>
+        <div class="oui-non">
+          <label class="question">Proposez-vous des bons cadeaux (ex : nuit + escape game) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="bons_cadeaux" value="oui"> Oui</label>
+            <label><input type="radio" name="bons_cadeaux" value="non"> Non</label>
+            <label><input type="radio" name="bons_cadeaux" value="a_creer"> À créer</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Proposez-vous la privatisation complète du domaine (séminaires, EVJF, anniversaires…) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="privatisation" value="oui"> Oui</label>
+            <label><input type="radio" name="privatisation" value="non"> Non</label>
+            <label><input type="radio" name="privatisation" value="a_definir"> À définir</label>
+          </div>
         </div>
       </div>
     </div>
@@ -323,6 +331,10 @@
           <input type="text" name="capacite_salle" placeholder="Ex : 2 à 6 joueurs par salle">
         </div>
         <div class="field">
+          <label>Âge minimum requis pour jouer</label>
+          <input type="text" name="age_min_escape" placeholder="Ex : 12 ans minimum · 10 ans accompagné d'un adulte">
+        </div>
+        <div class="field">
           <label>Durée d'une session</label>
           <input type="text" name="duree_session" placeholder="Ex : 60 min — 75 min avec briefing/débriefing">
         </div>
@@ -335,8 +347,16 @@
           <label class="question">Les salles sont-elles accessibles sans séjour au gîte ?</label>
           <div class="choices">
             <label><input type="radio" name="escape_externe" value="oui"> Oui — ouvert à tous</label>
-            <label><input type="radio" name="escape_externe" value="non"> Non — réservé aux occupants du gîte</label>
+            <label><input type="radio" name="escape_externe" value="non"> Non — réservé aux occupants</label>
             <label><input type="radio" name="escape_externe" value="mixte"> Les deux selon disponibilités</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Les salles escape game sont-elles accessibles PMR ?</label>
+          <div class="choices">
+            <label><input type="radio" name="pmr_escape" value="oui"> Oui</label>
+            <label><input type="radio" name="pmr_escape" value="non"> Non</label>
+            <label><input type="radio" name="pmr_escape" value="partiel"> Partiellement</label>
           </div>
         </div>
         <div class="oui-non">
@@ -360,6 +380,20 @@
           <div class="choices">
             <label><input type="radio" name="difficulte" value="oui"> Oui — à afficher sur le site</label>
             <label><input type="radio" name="difficulte" value="non"> Non — pas nécessaire</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous afficher le taux de réussite / statistiques des salles ?</label>
+          <div class="choices">
+            <label><input type="radio" name="taux_reussite" value="oui"> Oui</label>
+            <label><input type="radio" name="taux_reussite" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Un règlement intérieur / consignes de sécurité est-il à afficher en ligne ?</label>
+          <div class="choices">
+            <label><input type="radio" name="reglement_escape" value="oui"> Oui — à intégrer sur le site</label>
+            <label><input type="radio" name="reglement_escape" value="non"> Non</label>
           </div>
         </div>
         <div class="checkboxes">
@@ -396,6 +430,20 @@
           </div>
         </div>
         <div class="oui-non">
+          <label class="question">Confirmation de réservation automatique par email ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="confirm_auto" value="oui"> Oui</label>
+            <label><input type="radio" name="confirm_auto" value="non"> Non — je confirme manuellement</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Rappel automatique au client (J-7 et J-1 avant l'arrivée) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="rappel_auto" value="oui"> Oui</label>
+            <label><input type="radio" name="rappel_auto" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
           <label class="question">Vous êtes présent sur des plateformes de réservation tierces ?</label>
           <div class="choices">
             <label><input type="radio" name="plateformes" value="oui"> Oui</label>
@@ -419,6 +467,17 @@
             <label><input type="radio" name="arrhes" value="oui"> Oui</label>
             <label><input type="radio" name="arrhes" value="non"> Non — paiement intégral</label>
             <label><input type="radio" name="arrhes" value="a_definir"> À définir</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Caution / dépôt de garantie — comment est-il géré ?</label>
+          <input type="text" name="caution" placeholder="Ex : 500€ par empreinte CB · Chèque de caution remis à l'arrivée">
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous un contrat de location numérique à signer en ligne ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="contrat_numerique" value="oui"> Oui — signature électronique</label>
+            <label><input type="radio" name="contrat_numerique" value="non"> Non</label>
           </div>
         </div>
         <div class="field">
@@ -500,6 +559,13 @@
             <label><input type="radio" name="has_faq" value="non"> Non</label>
           </div>
         </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous un formulaire de contact en plus du système de réservation ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_contact_form" value="oui"> Oui</label>
+            <label><input type="radio" name="has_contact_form" value="non"> Non — la réservation suffit</label>
+          </div>
+        </div>
         <div class="checkboxes">
           <label class="question">Réseaux sociaux actifs à intégrer</label>
           <div class="options">
@@ -511,6 +577,17 @@
           </div>
         </div>
         <div class="field">
+          <label>URLs de vos réseaux sociaux existants</label>
+          <input type="text" name="reseaux_urls" placeholder="Ex : instagram.com/domaine_des_secrets · facebook.com/…">
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous un widget Instagram (galerie dynamique de posts sur le site) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="widget_instagram" value="oui"> Oui</label>
+            <label><input type="radio" name="widget_instagram" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="field">
           <label>Combien de pages statiques prévues ?</label>
           <span class="hint">Ex : Accueil, Le Gîte, L'Escape Game, Réservation, Contact, FAQ, CGV, Mentions légales…</span>
           <input type="text" name="nb_pages" placeholder="Ex : 8 pages">
@@ -518,7 +595,119 @@
       </div>
     </div>
 
-    <!-- 8. JURIDIQUE & RÉGLEMENTAIRE -->
+    <!-- 8. CONTENU & TEXTES -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">✍️</span><h2>Contenu &amp; textes du site</h2></div>
+      <div class="section-body">
+        <div class="oui-non">
+          <label class="question">Qui rédige les textes du site ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="redaction" value="client"> Moi — je les fournis</label>
+            <label><input type="radio" name="redaction" value="max"> MAX DESIGN s'en charge</label>
+            <label><input type="radio" name="redaction" value="mixte"> Mixte (base client + réécriture)</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Avez-vous une vidéo de présentation du domaine ou des salles ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_video" value="oui"> Oui — à intégrer sur le site</label>
+            <label><input type="radio" name="has_video" value="non"> Non</label>
+            <label><input type="radio" name="has_video" value="a_faire"> Non — à tourner</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous une visite virtuelle 360° du gîte ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="visite_360" value="oui"> Oui</label>
+            <label><input type="radio" name="visite_360" value="non"> Non</label>
+            <label><input type="radio" name="visite_360" value="plus_tard"> Plus tard</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous un guide de bienvenue numérique (QR code en chambre) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="guide_bienvenue" value="oui"> Oui — QR code dans le gîte</label>
+            <label><input type="radio" name="guide_bienvenue" value="non"> Non</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. SEO & RÉFÉRENCEMENT LOCAL -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">🔍</span><h2>SEO &amp; référencement local</h2></div>
+      <div class="section-body">
+        <div class="oui-non">
+          <label class="question">Avez-vous une fiche Google My Business (Google Maps) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_gmb" value="oui"> Oui — à jour</label>
+            <label><input type="radio" name="has_gmb" value="oui_old"> Oui — à optimiser</label>
+            <label><input type="radio" name="has_gmb" value="non"> Non — à créer</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Mots-clés prioritaires pour le référencement</label>
+          <span class="hint">Sur quelles recherches souhaitez-vous apparaître en priorité ?</span>
+          <textarea name="mots_cles" placeholder="Ex : gîte avec escape game Haute-Garonne · location vacances piscine 31 · escape game privatif Toulouse"></textarea>
+        </div>
+        <div class="checkboxes">
+          <label class="question">Présence sur annuaires touristiques</label>
+          <div class="options">
+            <label><input type="checkbox" name="annuaires" value="gites_france"><span class="check-icon">✓</span> Gîtes de France</label>
+            <label><input type="checkbox" name="annuaires" value="clevacances"><span class="check-icon">✓</span> Clévacances</label>
+            <label><input type="checkbox" name="annuaires" value="tripadvisor_ann"><span class="check-icon">✓</span> TripAdvisor</label>
+            <label><input type="checkbox" name="annuaires" value="office_tourisme"><span class="check-icon">✓</span> Office du tourisme local</label>
+            <label><input type="checkbox" name="annuaires" value="aucun_ann"><span class="check-icon">✓</span> Aucun pour l'instant</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Avez-vous Google Search Console installée ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_gsc" value="oui"> Oui</label>
+            <label><input type="radio" name="has_gsc" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Vos concurrents locaux principaux (pour analyse SEO)</label>
+          <input type="text" name="concurrents" placeholder="Ex : Domaine XYZ, Escape Room Toulouse, Gîte Les Roses…">
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. EMAIL PRO & ANALYTICS -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">📧</span><h2>Email professionnel &amp; analytics</h2></div>
+      <div class="section-body">
+        <div class="oui-non">
+          <label class="question">Avez-vous déjà une adresse email @votregite.fr ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_email_pro" value="oui"> Oui</label>
+            <label><input type="radio" name="has_email_pro" value="non"> Non — à créer</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Adresses emails professionnelles souhaitées</label>
+          <span class="hint">Ex : contact@, reservation@, info@…</span>
+          <input type="text" name="emails_pro" placeholder="Ex : contact@domaine-des-secrets.fr · reservation@domaine-des-secrets.fr">
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous Google Analytics 4 installé sur le site ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_ga4" value="oui"> Oui</label>
+            <label><input type="radio" name="has_ga4" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Pixel Meta (Facebook / Instagram) pour le remarketing ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_pixel_meta" value="oui"> Oui</label>
+            <label><input type="radio" name="has_pixel_meta" value="non"> Non</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. JURIDIQUE & RÉGLEMENTAIRE -->
     <div class="section">
       <div class="section-header"><span class="emoji">⚖️</span><h2>Juridique &amp; réglementaire</h2></div>
       <div class="section-body">
@@ -531,6 +720,21 @@
             <label><input type="radio" name="has_cgv" value="oui"> Oui — je les fournis</label>
             <label><input type="radio" name="has_cgv" value="non_max"> Non — à rédiger par MAX DESIGN</label>
             <label><input type="radio" name="has_cgv" value="non_juriste"> Non — je prends un juriste</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Avez-vous une politique de confidentialité (RGPD) rédigée ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_rgpd" value="oui"> Oui — je la fournis</label>
+            <label><input type="radio" name="has_rgpd" value="non_max"> Non — à rédiger par MAX DESIGN</label>
+            <label><input type="radio" name="has_rgpd" value="non"> Non — je m'en charge</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Bandeau de consentement cookies RGPD (obligatoire si analytics) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_cookies" value="oui"> Oui</label>
+            <label><input type="radio" name="has_cookies" value="non"> Non</label>
           </div>
         </div>
         <div class="oui-non">
@@ -559,7 +763,7 @@
       </div>
     </div>
 
-    <!-- 9. BUDGET & HÉBERGEMENT -->
+    <!-- 12. BUDGET & HÉBERGEMENT -->
     <div class="section">
       <div class="section-header"><span class="emoji">💰</span><h2>Budget &amp; hébergement technique</h2></div>
       <div class="section-body">
@@ -608,7 +812,7 @@
       </div>
     </div>
 
-    <!-- 10. FORMATION & GARANTIE -->
+    <!-- 13. FORMATION & GARANTIE -->
     <div class="section">
       <div class="section-header"><span class="emoji">🎓</span><h2>Formation &amp; garantie</h2></div>
       <div class="section-body">
@@ -643,7 +847,6 @@
       </div>
     </div>
 
-    <!-- RÉSUMÉ -->
     <div id="resume-section">
       <div class="resume-box">
         <h3>✅ Brief envoyé — récapitulatif</h3>
@@ -651,7 +854,6 @@
       </div>
     </div>
 
-    <!-- SUBMIT -->
     <div class="submit-wrap">
       <button type="submit" class="btn-submit"><span>📨</span> Envoyer le brief à MAX DESIGN</button>
     </div>
@@ -688,28 +890,47 @@ function showToast(msg,type='ok'){
 const LABELS={
   nom_gite:'Nom du gîte',adresse:'Adresse',siret:'SIRET',email:'Email',
   tel:'Téléphone',contact_nom:'Interlocuteur',activites:'Activités',
+  has_site_existant:'Site existant ?',url_site_existant:'URL site existant',
   has_domaine:'Nom de domaine ?',domaine:'Domaine',has_logo:'Logo ?',
   logo_format:'Format logo',has_charte:'Charte graphique ?',
   style_visuel:'Style visuel',references_visuelles:'Références visuelles',
   nb_gites:'Nb de gîtes',capacite:'Capacité totale',description_gite:'Description gîte',
   equipements:'Équipements',has_photos_gite:'Photos gîte ?',
-  tarifs_gite:'Tarifs gîte',duree_min:'Durée min séjour',
+  tarifs_gite:'Tarifs gîte',tarifs_saisonniers:'Tarifs haute/basse saison',
+  duree_min:'Durée min séjour',checkin_checkout:'Check-in / Check-out',
+  taxe_sejour:'Taxe de séjour',bons_cadeaux:'Bons cadeaux ?',
+  privatisation:'Privatisation domaine ?',
   nb_salles:'Nb salles escape',themes_salles:'Thèmes salles',
-  capacite_salle:'Capacité/salle',duree_session:'Durée session',
-  tarifs_escape:'Tarifs escape',escape_externe:'Accès externe ?',
+  capacite_salle:'Capacité/salle',age_min_escape:'Âge minimum escape',
+  duree_session:'Durée session',tarifs_escape:'Tarifs escape',
+  escape_externe:'Accès externe ?',pmr_escape:'PMR escape game ?',
   formule_combo:'Formule combo ?',has_photos_escape:'Photos escape ?',
-  difficulte:'Difficulté affichée ?',public_escape:'Public cible',
+  difficulte:'Difficulté affichée ?',taux_reussite:'Taux de réussite affiché ?',
+  reglement_escape:'Règlement intérieur escape ?',public_escape:'Public cible',
   resa_gite:'Résa gîte en ligne ?',resa_escape:'Résa escape en ligne ?',
-  plateformes:'Plateformes ?',plateformes_detail:'Plateformes détail',
-  synchro_dispo:'Synchro dispos ?',arrhes:'Arrhes ?',annulation:'Politique annulation',
+  confirm_auto:'Confirmation auto email ?',rappel_auto:'Rappel J-7/J-1 ?',
+  plateformes:'Plateformes tierces ?',plateformes_detail:'Plateformes détail',
+  synchro_dispo:'Synchro dispos ?',arrhes:'Arrhes / acompte ?',
+  caution:'Caution / dépôt de garantie',contrat_numerique:'Contrat numérique ?',
+  annulation:'Politique annulation',
   has_stripe:'Compte Stripe ?',paiement:'Moyens paiement',
   factures_pdf:'Factures PDF ?',has_promo:'Codes promo ?',
   has_avis:'Avis clients ?',has_newsletter:'Newsletter ?',
-  has_chat:'Chat support ?',has_faq:'FAQ ?',reseaux:'Réseaux sociaux',
-  nb_pages:'Nb pages statiques',has_cgv:'CGV ?',classement:'Classement meublé ?',
-  erp:'Agrément ERP ?',has_juriste:'Juriste ?',budget:'Budget',
-  hebergement_autonome:'Hébergement autonome ?',maintenance:'Maintenance ?',
-  delai:'Délai souhaité',formation:'Formation ?',garantie:'Garantie bugs',
+  has_chat:'Chat support ?',has_faq:'FAQ ?',has_contact_form:'Formulaire contact ?',
+  reseaux:'Réseaux sociaux',reseaux_urls:'URLs réseaux sociaux',
+  widget_instagram:'Widget Instagram ?',nb_pages:'Nb pages statiques',
+  redaction:'Rédaction textes',has_video:'Vidéo de présentation ?',
+  visite_360:'Visite virtuelle 360° ?',guide_bienvenue:'Guide bienvenue QR ?',
+  has_gmb:'Google My Business ?',mots_cles:'Mots-clés SEO',
+  annuaires:'Annuaires touristiques',has_gsc:'Google Search Console ?',
+  concurrents:'Concurrents locaux',
+  has_email_pro:'Email pro @domaine ?',emails_pro:'Adresses emails pro',
+  has_ga4:'Google Analytics 4 ?',has_pixel_meta:'Pixel Meta ?',
+  has_cgv:'CGV ?',has_rgpd:'Politique RGPD ?',has_cookies:'Bandeau cookies ?',
+  classement:'Classement meublé ?',erp:'Agrément ERP ?',has_juriste:'Juriste ?',
+  budget:'Budget',hebergement_autonome:'Hébergement autonome ?',
+  maintenance:'Maintenance ?',delai:'Délai souhaité',
+  formation:'Formation ?',garantie:'Garantie bugs',
   contraintes_tech:'Contraintes tech ?',autres:'Remarques'
 };
 
@@ -748,13 +969,16 @@ document.getElementById('brief-form').addEventListener('submit',async function(e
   try{
     const SECTIONS=[
       {title:'Informations établissement',emoji:'🏡',keys:['nom_gite','adresse','siret','email','tel','contact_nom','activites']},
-      {title:'Domaine & identité visuelle',emoji:'🌐',keys:['has_domaine','domaine','has_logo','logo_format','has_charte','style_visuel','references_visuelles']},
-      {title:'Gîte & hébergement',emoji:'🛏️',keys:['nb_gites','capacite','description_gite','equipements','has_photos_gite','tarifs_gite','duree_min']},
-      {title:'Escape game',emoji:'🔐',keys:['nb_salles','themes_salles','capacite_salle','duree_session','tarifs_escape','escape_externe','formule_combo','has_photos_escape','difficulte','public_escape']},
-      {title:'Réservation en ligne',emoji:'📅',keys:['resa_gite','resa_escape','plateformes','plateformes_detail','synchro_dispo','arrhes','annulation']},
+      {title:'Domaine & identité visuelle',emoji:'🌐',keys:['has_site_existant','url_site_existant','has_domaine','domaine','has_logo','logo_format','has_charte','style_visuel','references_visuelles']},
+      {title:'Gîte & hébergement',emoji:'🛏️',keys:['nb_gites','capacite','description_gite','equipements','has_photos_gite','tarifs_gite','tarifs_saisonniers','duree_min','checkin_checkout','taxe_sejour','bons_cadeaux','privatisation']},
+      {title:'Escape game',emoji:'🔐',keys:['nb_salles','themes_salles','capacite_salle','age_min_escape','duree_session','tarifs_escape','escape_externe','pmr_escape','formule_combo','has_photos_escape','difficulte','taux_reussite','reglement_escape','public_escape']},
+      {title:'Réservation en ligne',emoji:'📅',keys:['resa_gite','resa_escape','confirm_auto','rappel_auto','plateformes','plateformes_detail','synchro_dispo','arrhes','caution','contrat_numerique','annulation']},
       {title:'Paiement',emoji:'💳',keys:['has_stripe','paiement','factures_pdf','has_promo']},
-      {title:'Avis & communication',emoji:'📣',keys:['has_avis','has_newsletter','has_chat','has_faq','reseaux','nb_pages']},
-      {title:'Juridique & réglementaire',emoji:'⚖️',keys:['has_cgv','classement','erp','has_juriste']},
+      {title:'Avis & communication',emoji:'📣',keys:['has_avis','has_newsletter','has_chat','has_faq','has_contact_form','reseaux','reseaux_urls','widget_instagram','nb_pages']},
+      {title:'Contenu & textes',emoji:'✍️',keys:['redaction','has_video','visite_360','guide_bienvenue']},
+      {title:'SEO & référencement local',emoji:'🔍',keys:['has_gmb','mots_cles','annuaires','has_gsc','concurrents']},
+      {title:'Email pro & analytics',emoji:'📧',keys:['has_email_pro','emails_pro','has_ga4','has_pixel_meta']},
+      {title:'Juridique & réglementaire',emoji:'⚖️',keys:['has_cgv','has_rgpd','has_cookies','classement','erp','has_juriste']},
       {title:'Budget & hébergement',emoji:'💰',keys:['budget','hebergement_autonome','maintenance','delai']},
       {title:'Formation & garantie',emoji:'🎓',keys:['formation','garantie','contraintes_tech','autres']},
     ];

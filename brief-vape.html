@@ -133,7 +133,7 @@
           <input type="text" name="nom_boutique" placeholder="Ex : VapeZone Vitry" required>
         </div>
         <div class="field">
-          <label>Adresse complète (boutique Vitry) <span style="color:var(--rouge)">*</span></label>
+          <label>Adresse complète (boutique physique) <span style="color:var(--rouge)">*</span></label>
           <input type="text" name="adresse" placeholder="Ex : 12 rue de la République, 94400 Vitry-sur-Seine" required>
         </div>
         <div class="field">
@@ -159,6 +159,17 @@
     <div class="section">
       <div class="section-header"><span class="emoji">🌐</span><h2>Domaine &amp; identité visuelle</h2></div>
       <div class="section-body">
+        <div class="oui-non">
+          <label class="question">Avez-vous un site existant à remplacer / refondre ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_site_existant" value="oui"> Oui — refonte</label>
+            <label><input type="radio" name="has_site_existant" value="non"> Non — création from scratch</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Si oui — URL du site existant</label>
+          <input type="text" name="url_site_existant" placeholder="Ex : https://ancien-site.fr">
+        </div>
         <div class="oui-non">
           <label class="question">Vous avez déjà un nom de domaine ?</label>
           <div class="choices">
@@ -238,6 +249,14 @@
           </div>
         </div>
         <div class="oui-non">
+          <label class="question">Avez-vous un fichier CSV / Excel de votre catalogue à importer ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="import_csv" value="oui"> Oui — fichier fourni</label>
+            <label><input type="radio" name="import_csv" value="non"> Non — saisie manuelle</label>
+            <label><input type="radio" name="import_csv" value="fournisseur"> À récupérer via fournisseur</label>
+          </div>
+        </div>
+        <div class="oui-non">
           <label class="question">Vous avez des photos de vos produits ? <span class="devis-badge">💶 DEVIS</span></label>
           <div class="choices">
             <label><input type="radio" name="has_photos" value="oui"> Oui — je les fournis</label>
@@ -259,7 +278,7 @@
           </div>
         </div>
         <div class="oui-non">
-          <label class="question">Voulez-vous un moteur de recherche avec filtres avancés ?</label>
+          <label class="question">Voulez-vous un moteur de recherche avec filtres avancés ? <span class="devis-badge">💶 DEVIS</span></label>
           <div class="choices">
             <label><input type="radio" name="has_search" value="oui"> Oui (filtres par marque, saveur, nicotine...)</label>
             <label><input type="radio" name="has_search" value="basique"> Recherche basique suffit</label>
@@ -267,10 +286,31 @@
           </div>
         </div>
         <div class="oui-non">
+          <label class="question">Voulez-vous une liste de favoris (wishlist) pour les clients ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_wishlist" value="oui"> Oui</label>
+            <label><input type="radio" name="has_wishlist" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous des recommandations produits (cross-sell / upsell sur les fiches) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_recommendations" value="oui"> Oui</label>
+            <label><input type="radio" name="has_recommendations" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous des badges produit (nouveau, promo, rupture imminente) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_badges" value="oui"> Oui</label>
+            <label><input type="radio" name="has_badges" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
           <label class="question">Voulez-vous un système d'avis clients / notation produits ?</label>
           <div class="choices">
-            <label><input type="radio" name="has_avis" value="oui"> Oui</label>
-            <label><input type="radio" name="has_avis" value="non"> Non</label>
+            <label><input type="radio" name="has_avis_produits" value="oui"> Oui</label>
+            <label><input type="radio" name="has_avis_produits" value="non"> Non</label>
           </div>
         </div>
       </div>
@@ -308,6 +348,27 @@
           <label>Tarif de livraison envisagé</label>
           <span class="hint">Ex : gratuit à partir de 50€, sinon 4,90€</span>
           <input type="text" name="tarif_livraison" placeholder="Ex : Gratuit dès 50€, sinon 4,90€ en Colissimo">
+        </div>
+        <div class="oui-non">
+          <label class="question">Suivi de commande en temps réel (page tracking intégrée) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="suivi_commande" value="oui"> Oui</label>
+            <label><input type="radio" name="suivi_commande" value="non"> Non — lien transporteur suffit</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Récupération de panier abandonné (email automatique J+1) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="panier_abandonne" value="oui"> Oui</label>
+            <label><input type="radio" name="panier_abandonne" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Alerte client quand un produit est de nouveau disponible (stock) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="notif_reappro" value="oui"> Oui</label>
+            <label><input type="radio" name="notif_reappro" value="non"> Non</label>
+          </div>
         </div>
         <div class="oui-non">
           <label class="question">Voulez-vous des notifications SMS en plus des emails ?</label>
@@ -354,10 +415,25 @@
           </div>
         </div>
         <div class="oui-non">
+          <label class="question">Paiement en 3x sans frais (Alma / Klarna) ? Très courant sur kits > 100€ <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_3x" value="oui"> Oui</label>
+            <label><input type="radio" name="has_3x" value="non"> Non</label>
+            <label><input type="radio" name="has_3x" value="plus_tard"> Plus tard</label>
+          </div>
+        </div>
+        <div class="oui-non">
           <label class="question">Voulez-vous un système de codes promo / réductions ?</label>
           <div class="choices">
             <label><input type="radio" name="has_promo" value="oui"> Oui</label>
             <label><input type="radio" name="has_promo" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous des cartes cadeaux / bons d'achat ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_carte_cadeau" value="oui"> Oui</label>
+            <label><input type="radio" name="has_carte_cadeau" value="non"> Non</label>
           </div>
         </div>
         <div class="oui-non">
@@ -366,6 +442,13 @@
             <label><input type="radio" name="has_fidelite" value="oui"> Oui (points, récompenses…)</label>
             <label><input type="radio" name="has_fidelite" value="non"> Non</label>
             <label><input type="radio" name="has_fidelite" value="a_discuter"> À discuter</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Programme de parrainage client (offrir une réduction pour chaque filleul) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_parrainage" value="oui"> Oui</label>
+            <label><input type="radio" name="has_parrainage" value="non"> Non</label>
           </div>
         </div>
         <div class="oui-non">
@@ -390,18 +473,22 @@
             <label><input type="radio" name="gestion_stock" value="non"> Non</label>
           </div>
         </div>
-        <div class="oui-non">
-          <label class="question">Voulez-vous un tableau de bord analytics ? <span class="devis-badge">💶 DEVIS</span></label>
-          <div class="choices">
-            <label><input type="radio" name="has_dashboard" value="oui"> Oui (ventes, CA, commandes...)</label>
-            <label><input type="radio" name="has_dashboard" value="non"> Non — Google Analytics suffit</label>
-          </div>
+        <div class="field">
+          <label>Combien de personnes gèreront le back-office ?</label>
+          <input type="text" name="nb_gestionnaires" placeholder="Ex : 1 personne (moi seul) · 2 personnes avec rôles différents">
         </div>
         <div class="oui-non">
           <label class="question">Vous souhaitez gérer vous-même les produits (ajout, modif, stock) ?</label>
           <div class="choices">
             <label><input type="radio" name="self_manage" value="oui"> Oui — back-office indispensable</label>
             <label><input type="radio" name="self_manage" value="non"> Non — je passerai par vous</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Voulez-vous un tableau de bord analytics (CA, taux conversion, panier moyen) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_dashboard" value="oui"> Oui</label>
+            <label><input type="radio" name="has_dashboard" value="non"> Non — Google Analytics suffit</label>
           </div>
         </div>
         <div class="oui-non">
@@ -415,6 +502,13 @@
           <label>Si oui — quel logiciel de caisse ?</label>
           <input type="text" name="logiciel_caisse" placeholder="Ex : Lightspeed, Zelty, Shopify POS...">
         </div>
+        <div class="oui-non">
+          <label class="question">Intégration avec un logiciel comptable (Sage, QuickBooks, EBP…) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_compta" value="oui"> Oui</label>
+            <label><input type="radio" name="has_compta" value="non"> Non</label>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -423,7 +517,7 @@
       <div class="section-header"><span class="emoji">📣</span><h2>Contenu &amp; marketing</h2></div>
       <div class="section-body">
         <div class="oui-non">
-          <label class="question">Voulez-vous un blog (articles, guides, actualités vape…) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <label class="question">Voulez-vous un blog (articles, guides, comparatifs vape…) ? <span class="devis-badge">💶 DEVIS</span></label>
           <div class="choices">
             <label><input type="radio" name="has_blog" value="oui"> Oui</label>
             <label><input type="radio" name="has_blog" value="non"> Non</label>
@@ -445,6 +539,40 @@
           </div>
         </div>
         <div class="oui-non">
+          <label class="question">Avis vérifiés (Trustpilot, Avis Vérifiés, Ekomi…) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_avis_verifies" value="oui"> Oui</label>
+            <label><input type="radio" name="has_avis_verifies" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="checkboxes">
+          <label class="question">Réseaux sociaux actifs à intégrer</label>
+          <div class="options">
+            <label><input type="checkbox" name="reseaux" value="instagram"><span class="check-icon">✓</span> Instagram</label>
+            <label><input type="checkbox" name="reseaux" value="facebook"><span class="check-icon">✓</span> Facebook</label>
+            <label><input type="checkbox" name="reseaux" value="tiktok"><span class="check-icon">✓</span> TikTok</label>
+            <label><input type="checkbox" name="reseaux" value="aucun"><span class="check-icon">✓</span> Aucun pour l'instant</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>URLs de vos réseaux sociaux existants</label>
+          <input type="text" name="reseaux_urls" placeholder="Ex : instagram.com/vapezone_vitry · tiktok.com/@…">
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous un widget Instagram (galerie dynamique sur le site) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="widget_instagram" value="oui"> Oui</label>
+            <label><input type="radio" name="widget_instagram" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Programme d'affiliation / partenariat influenceurs ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_affiliation" value="oui"> Oui</label>
+            <label><input type="radio" name="has_affiliation" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
           <label class="question">Voulez-vous un site multilingue ? <span class="devis-badge">💶 DEVIS</span></label>
           <div class="choices">
             <label><input type="radio" name="multilingue" value="oui"> Oui</label>
@@ -459,7 +587,89 @@
       </div>
     </div>
 
-    <!-- 8. JURIDIQUE & RÉGLEMENTAIRE -->
+    <!-- 8. SEO & RÉFÉRENCEMENT — CRITIQUE -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">🔍</span><h2>SEO &amp; référencement <span style="font-size:0.8rem;font-weight:400;opacity:0.85">— seul levier d'acquisition (pas de pub Google/Meta possible)</span></h2></div>
+      <div class="section-body">
+        <div class="alert-warn">
+          ⚠️ <strong>La publicité Google Ads et Meta Ads est interdite pour la vape.</strong> Le SEO est votre seul levier d'acquisition organique — il doit être traité en priorité absolue dès la conception du site.
+        </div>
+        <div class="oui-non">
+          <label class="question">Avez-vous une fiche Google My Business (Google Maps) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_gmb" value="oui"> Oui — à jour</label>
+            <label><input type="radio" name="has_gmb" value="oui_old"> Oui — à optimiser</label>
+            <label><input type="radio" name="has_gmb" value="non"> Non — à créer</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Mots-clés prioritaires pour le référencement</label>
+          <span class="hint">Sur quelles recherches souhaitez-vous apparaître en priorité ?</span>
+          <textarea name="mots_cles" placeholder="Ex : cigarette électronique Vitry-sur-Seine · achat e-liquide Val-de-Marne · kit vape pas cher Île-de-France"></textarea>
+        </div>
+        <div class="oui-non">
+          <label class="question">Avez-vous Google Search Console installée ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_gsc" value="oui"> Oui</label>
+            <label><input type="radio" name="has_gsc" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Vos concurrents en ligne principaux (pour analyse SEO)</label>
+          <input type="text" name="concurrents" placeholder="Ex : cigarette-electronique.fr, cigusto.fr, vap.fr…">
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous un blog SEO (guides d'achat, comparatifs, conseils vape) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="blog_seo" value="oui"> Oui — contenu SEO rédigé par MAX DESIGN</label>
+            <label><input type="radio" name="blog_seo" value="client"> Oui — je rédige moi-même</label>
+            <label><input type="radio" name="blog_seo" value="non"> Non</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. EMAIL PRO & ANALYTICS -->
+    <div class="section">
+      <div class="section-header"><span class="emoji">📧</span><h2>Email professionnel &amp; analytics</h2></div>
+      <div class="section-body">
+        <div class="oui-non">
+          <label class="question">Avez-vous déjà une adresse email @votreboutique.fr ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_email_pro" value="oui"> Oui</label>
+            <label><input type="radio" name="has_email_pro" value="non"> Non — à créer</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Adresses emails professionnelles souhaitées</label>
+          <span class="hint">Les emails de commande doivent venir de votre domaine pour éviter les spams</span>
+          <input type="text" name="emails_pro" placeholder="Ex : contact@vapezone.fr · commandes@vapezone.fr">
+        </div>
+        <div class="oui-non">
+          <label class="question">Souhaitez-vous Google Analytics 4 installé sur le site ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_ga4" value="oui"> Oui</label>
+            <label><input type="radio" name="has_ga4" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Google Tag Manager (GTM) pour gérer les balises de tracking) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_gtm" value="oui"> Oui</label>
+            <label><input type="radio" name="has_gtm" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Pixel Meta (Facebook / Instagram) — utile même sans pub pour le reciblage ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_pixel_meta" value="oui"> Oui</label>
+            <label><input type="radio" name="has_pixel_meta" value="non"> Non</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. JURIDIQUE & RÉGLEMENTAIRE -->
     <div class="section">
       <div class="section-header"><span class="emoji">⚖️</span><h2>Juridique &amp; réglementaire</h2></div>
       <div class="section-body">
@@ -475,10 +685,34 @@
           </div>
         </div>
         <div class="oui-non">
+          <label class="question">Avez-vous une politique de confidentialité (RGPD) rédigée ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_rgpd" value="oui"> Oui — je la fournis</label>
+            <label><input type="radio" name="has_rgpd" value="non_max"> Non — à rédiger par MAX DESIGN</label>
+            <label><input type="radio" name="has_rgpd" value="non"> Non — je m'en charge</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Bandeau de consentement cookies RGPD (obligatoire si analytics) ? <span class="devis-badge">💶 DEVIS</span></label>
+          <div class="choices">
+            <label><input type="radio" name="has_cookies" value="oui"> Oui</label>
+            <label><input type="radio" name="has_cookies" value="non"> Non</label>
+          </div>
+        </div>
+        <div class="oui-non">
           <label class="question">Vous avez une politique de retour / remboursement définie ?</label>
           <div class="choices">
             <label><input type="radio" name="has_retour" value="oui"> Oui</label>
             <label><input type="radio" name="has_retour" value="non"> Non — à définir</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Politique de retour sur produits ouverts (e-liquides, pods) ?</label>
+          <span class="hint" style="font-size:0.78rem;color:#9CA3AF;margin-top:0.2rem;display:block">Les produits consommables ouverts ne peuvent généralement pas être retournés</span>
+          <div class="choices">
+            <label><input type="radio" name="retour_ouverts" value="non_remboursable"> Non remboursables si ouverts</label>
+            <label><input type="radio" name="retour_ouverts" value="cas_par_cas"> À étudier au cas par cas</label>
+            <label><input type="radio" name="retour_ouverts" value="a_definir"> À définir</label>
           </div>
         </div>
         <div class="oui-non">
@@ -487,6 +721,21 @@
             <label><input type="radio" name="ansm" value="oui"> Oui — déjà fait</label>
             <label><input type="radio" name="ansm" value="non"> Non — je ne savais pas</label>
             <label><input type="radio" name="ansm" value="en_cours"> En cours</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Chaque e-liquide / pod est-il notifié individuellement à l'ANSM (conformité TPD) ?</label>
+          <div class="choices">
+            <label><input type="radio" name="tpd_produit" value="oui"> Oui — documentation à jour pour chaque produit</label>
+            <label><input type="radio" name="tpd_produit" value="partiel"> Partiellement</label>
+            <label><input type="radio" name="tpd_produit" value="non"> Non / je ne sais pas</label>
+          </div>
+        </div>
+        <div class="oui-non">
+          <label class="question">Vendez-vous également à des professionnels (B2B) en plus du grand public ?</label>
+          <div class="choices">
+            <label><input type="radio" name="has_b2b" value="oui"> Oui — tarifs pro / commandes en gros</label>
+            <label><input type="radio" name="has_b2b" value="non"> Non — B2C uniquement</label>
           </div>
         </div>
         <div class="oui-non">
@@ -507,7 +756,7 @@
       </div>
     </div>
 
-    <!-- 9. BUDGET & HÉBERGEMENT -->
+    <!-- 11. BUDGET & HÉBERGEMENT -->
     <div class="section">
       <div class="section-header"><span class="emoji">💰</span><h2>Budget &amp; hébergement</h2></div>
       <div class="section-body">
@@ -556,7 +805,7 @@
       </div>
     </div>
 
-    <!-- 10. FORMATION & GARANTIE -->
+    <!-- 12. FORMATION & GARANTIE -->
     <div class="section">
       <div class="section-header"><span class="emoji">🎓</span><h2>Formation &amp; garantie</h2></div>
       <div class="section-body">
@@ -591,7 +840,6 @@
       </div>
     </div>
 
-    <!-- RÉSUMÉ -->
     <div id="resume-section">
       <div class="resume-box">
         <h3>✅ Brief envoyé — récapitulatif</h3>
@@ -634,27 +882,48 @@ function showToast(msg,type='ok'){
 
 const LABELS={
   nom_boutique:'Nom boutique',adresse:'Adresse',siret:'SIRET',email:'Email',
-  tel:'Téléphone',contact_nom:'Interlocuteur',has_domaine:'Nom de domaine ?',
-  domaine:'Domaine',has_logo:'Logo ?',logo_format:'Format logo',
-  has_charte:'Charte graphique ?',style_visuel:'Style visuel',
-  references_visuelles:'Références visuelles',nb_produits:'Nb produits',
-  cat:'Catégories',has_variantes:'Variantes ?',has_photos:'Photos produits ?',
+  tel:'Téléphone',contact_nom:'Interlocuteur',
+  has_site_existant:'Site existant ?',url_site_existant:'URL site existant',
+  has_domaine:'Nom de domaine ?',domaine:'Domaine',has_logo:'Logo ?',
+  logo_format:'Format logo',has_charte:'Charte graphique ?',
+  style_visuel:'Style visuel',references_visuelles:'Références visuelles',
+  nb_produits:'Nb produits',cat:'Catégories',has_variantes:'Variantes ?',
+  import_csv:'Import CSV produits ?',has_photos:'Photos produits ?',
   photos_format:'Format photos',has_descriptions:'Descriptions ?',
-  has_search:'Recherche/filtres ?',has_avis:'Avis clients ?',
+  has_search:'Recherche/filtres ?',has_wishlist:'Wishlist ?',
+  has_recommendations:'Recommandations produits ?',has_badges:'Badges produit ?',
+  has_avis_produits:'Avis produits ?',
   mode_vente:'Mode vente',zone:'Zone livraison',transporteur:'Transporteur',
-  tarif_livraison:'Tarif livraison',sms_notif:'SMS notif ?',
-  factures_pdf:'Factures PDF ?',export_csv:'Export CSV ?',
+  tarif_livraison:'Tarif livraison',suivi_commande:'Suivi commande ?',
+  panier_abandonne:'Panier abandonné ?',notif_reappro:'Alerte réappro ?',
+  sms_notif:'SMS notif ?',factures_pdf:'Factures PDF ?',export_csv:'Export CSV ?',
   has_stripe:'Compte Stripe ?',paiement:'Moyens paiement',
-  has_promo:'Codes promo ?',has_fidelite:'Programme fidélité ?',
-  has_comptes:'Comptes clients ?',gestion_stock:'Gestion stock ?',
-  has_dashboard:'Dashboard analytics ?',self_manage:'Gestion autonome ?',
+  has_3x:'Paiement 3x (Alma/Klarna) ?',has_promo:'Codes promo ?',
+  has_carte_cadeau:'Cartes cadeaux ?',has_fidelite:'Programme fidélité ?',
+  has_parrainage:'Programme parrainage ?',has_comptes:'Comptes clients ?',
+  gestion_stock:'Gestion stock ?',nb_gestionnaires:'Nb gestionnaires back-office',
+  self_manage:'Gestion autonome ?',has_dashboard:'Dashboard analytics ?',
   has_caisse:'Logiciel caisse ?',logiciel_caisse:'Quel logiciel ?',
+  has_compta:'Intégration comptable ?',
   has_blog:'Blog ?',has_newsletter:'Newsletter ?',has_chat:'Chat support ?',
-  multilingue:'Multilingue ?',nb_pages:'Nb pages statiques',
-  has_cgv:'CGV ?',has_retour:'Politique retour ?',ansm:'Déclaration ANSM ?',
-  has_juriste:'Juriste ?',budget:'Budget',hebergement_autonome:'Hébergement autonome ?',
-  maintenance:'Maintenance ?',delai:'Délai souhaité',formation:'Formation ?',
-  garantie:'Garantie bugs',contraintes_tech:'Contraintes tech ?',autres:'Remarques'
+  has_avis_verifies:'Avis vérifiés ?',reseaux:'Réseaux sociaux',
+  reseaux_urls:'URLs réseaux sociaux',widget_instagram:'Widget Instagram ?',
+  has_affiliation:'Affiliation/influenceurs ?',multilingue:'Multilingue ?',
+  nb_pages:'Nb pages statiques',
+  has_gmb:'Google My Business ?',mots_cles:'Mots-clés SEO',
+  has_gsc:'Google Search Console ?',concurrents:'Concurrents en ligne',
+  blog_seo:'Blog SEO ?',
+  has_email_pro:'Email pro @domaine ?',emails_pro:'Adresses emails pro',
+  has_ga4:'Google Analytics 4 ?',has_gtm:'Google Tag Manager ?',
+  has_pixel_meta:'Pixel Meta ?',
+  has_cgv:'CGV ?',has_rgpd:'Politique RGPD ?',has_cookies:'Bandeau cookies ?',
+  has_retour:'Politique retour ?',retour_ouverts:'Retour produits ouverts ?',
+  ansm:'Déclaration ANSM ?',tpd_produit:'Conformité TPD produit/produit ?',
+  has_b2b:'Vente B2B ?',has_juriste:'Juriste ?',
+  budget:'Budget',hebergement_autonome:'Hébergement autonome ?',
+  maintenance:'Maintenance ?',delai:'Délai souhaité',
+  formation:'Formation ?',garantie:'Garantie bugs',
+  contraintes_tech:'Contraintes tech ?',autres:'Remarques'
 };
 
 document.getElementById('brief-form').addEventListener('submit',async function(e){
@@ -692,13 +961,15 @@ document.getElementById('brief-form').addEventListener('submit',async function(e
   try{
     const SECTIONS=[
       {title:'Informations boutique',emoji:'🏪',keys:['nom_boutique','adresse','siret','email','tel','contact_nom']},
-      {title:'Domaine & identité visuelle',emoji:'🌐',keys:['has_domaine','domaine','has_logo','logo_format','has_charte','style_visuel','references_visuelles']},
-      {title:'Catalogue produits',emoji:'📦',keys:['nb_produits','cat','has_variantes','has_photos','photos_format','has_descriptions','has_search','has_avis']},
-      {title:'Vente & livraison',emoji:'🚚',keys:['mode_vente','zone','transporteur','tarif_livraison','sms_notif','factures_pdf','export_csv']},
-      {title:'Paiement & fidélité',emoji:'💳',keys:['has_stripe','paiement','has_promo','has_fidelite','has_comptes']},
-      {title:'Stock & administration',emoji:'📊',keys:['gestion_stock','has_dashboard','self_manage','has_caisse','logiciel_caisse']},
-      {title:'Contenu & marketing',emoji:'📣',keys:['has_blog','has_newsletter','has_chat','multilingue','nb_pages']},
-      {title:'Juridique & réglementaire',emoji:'⚖️',keys:['has_cgv','has_retour','ansm','has_juriste']},
+      {title:'Domaine & identité visuelle',emoji:'🌐',keys:['has_site_existant','url_site_existant','has_domaine','domaine','has_logo','logo_format','has_charte','style_visuel','references_visuelles']},
+      {title:'Catalogue produits',emoji:'📦',keys:['nb_produits','cat','has_variantes','import_csv','has_photos','photos_format','has_descriptions','has_search','has_wishlist','has_recommendations','has_badges','has_avis_produits']},
+      {title:'Vente & livraison',emoji:'🚚',keys:['mode_vente','zone','transporteur','tarif_livraison','suivi_commande','panier_abandonne','notif_reappro','sms_notif','factures_pdf','export_csv']},
+      {title:'Paiement & fidélité',emoji:'💳',keys:['has_stripe','paiement','has_3x','has_promo','has_carte_cadeau','has_fidelite','has_parrainage','has_comptes']},
+      {title:'Stock & administration',emoji:'📊',keys:['gestion_stock','nb_gestionnaires','self_manage','has_dashboard','has_caisse','logiciel_caisse','has_compta']},
+      {title:'Contenu & marketing',emoji:'📣',keys:['has_blog','has_newsletter','has_chat','has_avis_verifies','reseaux','reseaux_urls','widget_instagram','has_affiliation','multilingue','nb_pages']},
+      {title:'SEO & référencement',emoji:'🔍',keys:['has_gmb','mots_cles','has_gsc','concurrents','blog_seo']},
+      {title:'Email pro & analytics',emoji:'📧',keys:['has_email_pro','emails_pro','has_ga4','has_gtm','has_pixel_meta']},
+      {title:'Juridique & réglementaire',emoji:'⚖️',keys:['has_cgv','has_rgpd','has_cookies','has_retour','retour_ouverts','ansm','tpd_produit','has_b2b','has_juriste']},
       {title:'Budget & hébergement',emoji:'💰',keys:['budget','hebergement_autonome','maintenance','delai']},
       {title:'Formation & garantie',emoji:'🎓',keys:['formation','garantie','contraintes_tech','autres']},
     ];
