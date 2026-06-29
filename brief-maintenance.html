@@ -313,8 +313,14 @@ document.getElementById('brief-form').addEventListener('submit',async function(e
   const fd=new FormData(this);
   const data={};
   for(let[k,v]of fd.entries()){
-    if(data[k]){data[k]=Array.isArray(data[k])?[...data[k],v]:[data[k],v];}
-    else{data[k]=v;}
+    const input=[...document.querySelectorAll(`input[name="${k}"]`)].find(el=>el.value===v);
+    let display=v;
+    if(input&&(input.type==='radio'||input.type==='checkbox')){
+      const lbl=input.closest('label');
+      if(lbl) display=lbl.textContent.trim().replace(/^✓\s*/,'');
+    }
+    if(data[k]){data[k]=Array.isArray(data[k])?[...data[k],display]:[data[k],display];}
+    else{data[k]=display;}
   }
 
   const grid=document.getElementById('resume-grid');
@@ -330,12 +336,41 @@ document.getElementById('brief-form').addEventListener('submit',async function(e
   const btn=document.querySelector('.btn-submit');
   btn.disabled=true;btn.textContent='Envoi en cours…';
   try{
-    let message='';
-    for(let[k,v]of Object.entries(data)){
-      if(!LABELS[k])continue;
-      const val=Array.isArray(v)?v.join(', '):v;
-      message+=LABELS[k]+' : '+(val||'—')+'\n';
+    const SECTIONS=[
+      {title:'Informations client',emoji:'👤',keys:['nom','email','tel']},
+      {title:'Site concerné',emoji:'🌐',keys:['url_site','techno','acces','origine']},
+      {title:'Intervention',emoji:'🔧',keys:['type_intervention','description','frequence','depuis_quand','urgence']},
+      {title:'Budget & suivi',emoji:'💰',keys:['budget','contrat','remarques']},
+    ];
+    let message='<table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-family:Arial,Helvetica,sans-serif">';
+    for(const s of SECTIONS){
+      let rows='';let ri=0;
+      for(const k of s.keys){
+        if(!LABELS[k]||data[k]===undefined)continue;
+        const val=Array.isArray(data[k])?data[k].join(', '):String(data[k]);
+        if(!val)continue;
+        const bg=ri%2===0?'#F5F3FF':'#ffffff';
+        rows+=`<tr><td bgcolor="${bg}" width="38%" valign="top" style="padding:9px 16px;color:#6B7280;font-size:13px;line-height:1.5;border-bottom:1px solid #EDE9FF;background-color:${bg}">${LABELS[k]}</td><td bgcolor="${bg}" valign="top" style="padding:9px 16px;color:#111827;font-size:13px;font-weight:700;line-height:1.5;border-bottom:1px solid #EDE9FF;background-color:${bg}">${String(val).replace(/\n/g,'<br>')}</td></tr>`;
+        ri++;
+      }
+      if(!rows)continue;
+      message+=`<tr><td colspan="2" style="padding-top:22px"></td></tr><tr><td colspan="2" bgcolor="#6C2BD9" style="background-color:#6C2BD9;padding:11px 16px"><span style="color:#ffffff;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">${s.emoji}&nbsp; ${s.title}</span></td></tr>${rows}`;
     }
+    const exportData={
+      title:'Demande maintenance — '+(data.nom||'Client'),
+      sections:SECTIONS.map(s=>({
+        title:s.title,emoji:s.emoji,
+        rows:s.keys.reduce((acc,k)=>{
+          if(!LABELS[k]||data[k]===undefined)return acc;
+          const val=Array.isArray(data[k])?data[k].join(', '):String(data[k]);
+          if(val.trim())acc.push([LABELS[k],val]);
+          return acc;
+        },[])
+      })).filter(s=>s.rows.length>0)
+    };
+    const exportHash=btoa(unescape(encodeURIComponent(JSON.stringify(exportData))));
+    const downloadUrl='https://maxencebastelica.github.io/brief-client/view-brief.html#'+exportHash;
+    message+=`<tr><td colspan="2" style="padding-top:16px"></td></tr><tr><td colspan="2" align="center" style="padding:24px 16px;border-top:2px solid #EDE9FF"><a href="${downloadUrl}" style="display:inline-block;background-color:#6C2BD9;color:#ffffff;padding:13px 30px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:700">⬇️ Télécharger le brief (.md)</a></td></tr></table>`;
     const params={
       name:data.nom||'Nouveau client',
       title:'Demande maintenance — '+(data.nom||'Nouveau client'),
