@@ -420,7 +420,7 @@ document.getElementById('brief-form').addEventListener('submit',async function(e
     for(let[k,v]of Object.entries(data)){
       params[k]=Array.isArray(v)?v.join(', '):v||'—';
     }
-    await emailjs.send('service_zvggbhj','template_huztaah',params);
+    await emailjs.send('service_fscstcc','template_huztaah',params);
     document.getElementById('resume-section').classList.add('visible');
     document.getElementById('resume-section').scrollIntoView({behavior:'smooth',block:'start'});
     showToast('✅ Brief envoyé avec succès !');
