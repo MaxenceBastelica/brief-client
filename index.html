@@ -416,13 +416,18 @@ document.getElementById('brief-form').addEventListener('submit',async function(e
   const btn=document.querySelector('.btn-submit');
   btn.disabled=true;btn.textContent='Envoi en cours…';
   try{
-    const params={};
+    let message='';
     for(let[k,v]of Object.entries(data)){
-      params[k]=Array.isArray(v)?v.join(', '):v||'—';
+      if(!LABELS[k])continue;
+      const val=Array.isArray(v)?v.join(', '):v;
+      message+=LABELS[k]+' : '+(val||'—')+'\n';
     }
-    params.name=data.nom||'Nouveau client';
-    params.title='Brief client — '+(data.nom||'Nouveau client');
-    params.message='Brief client soumis via le formulaire.';
+    const params={
+      name:data.nom||'Nouveau client',
+      title:'Brief client — '+(data.nom||'Nouveau client'),
+      email:data.email||'',
+      message:message
+    };
     await emailjs.send('service_fscstcc','template_huztaah',params);
     document.getElementById('resume-section').classList.add('visible');
     document.getElementById('resume-section').scrollIntoView({behavior:'smooth',block:'start'});
